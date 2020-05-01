@@ -1,2 +1,3 @@
 # covid100
-Map for trips during the covid-19
+
+A circle 100km around a marker.

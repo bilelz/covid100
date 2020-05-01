@@ -5,6 +5,9 @@ if ("geolocation" in navigator === false) {
 if (navigator.share === undefined) {
   document.querySelector("body").classList.add("no-share");
 }
+if (navigator.serviceWorker && !navigator.serviceWorker.controller) {
+  navigator.serviceWorker.register("/sw.js");
+}
 
 var initLatlng = { lat: 46.911637, lng: 2.724609 },
   circle100 = undefined,
