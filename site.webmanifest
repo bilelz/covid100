@@ -6,10 +6,15 @@
       "src": "img/covid100_192.png",
       "type": "image/png",
       "sizes": "192x192"
+    },
+    {
+      "src": "img/covid100_512.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ],
   "start_url": "/?utm_source=homescreen",
   "background_color": "#005a04",
   "theme_color": "#005a04",
-  "display": "standalone"
+  "display": "fullscreen"
 }
