@@ -62,7 +62,7 @@ body {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   margin: 0;
-  padding: 2em 1em;
+  padding: 0;
 }
 html {
   scroll-behavior: smooth;
@@ -71,15 +71,50 @@ html {
 .container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 1em 1em 20em 1em;
+  padding: 0;
   box-sizing: border-box;
-  background-color: var(--body-bg-color);
+
+  border-radius: 1em;
+}
+
+nav {
+  background-color: #00000026;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  border-radius: 1em;
+  position: relative;
+  z-index: 2;
+  padding: 0;
+  margin: 0;
+  padding: 0.5em 0;
+  top: 0;
 }
 
 #map {
   width: 100%;
-  height: 80vh;
+  border-radius: 2em;
+  margin: 0;
+  height: 100vh;
+  position: relative;
+  top: 0;
+  z-index: 1;
+  margin-top: -4em;
+  margin-bottom: -4em;
+}
+
+button {
+  -webkit-appearance: none;
+  background: rgb(238, 174, 202);
+  background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+  border: 1px solid white;
+  padding: 0.5em 1em;
+  border-radius: 4em;
+  color: white;
+  font-weight: bold;
+  line-height: 1.5em;
+  font-size: 0.8rem;
+}
+
+footer {
+  position: relative;
+  z-index: 2;
 }

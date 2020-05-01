@@ -31,11 +31,25 @@
       </p>
     <![endif]-->
 
-    <div class="container">
+    <div>
       <!-- Add your site or application content here -->
-      <p>🗺️ 100km</p>
+      <nav>
+        <div class="container">
+          <span>🗺️ 100km</span>
+
+          <button type="button" onclick="gps()">
+            📍Autour de chez moi
+          </button>
+          <span id="gpsStatus"></span>
+        </div>
+      </nav>
 
       <div id="map"></div>
+      <footer class="container">
+        <button type="button" onclick="france()">
+          Centrer sur la France
+        </button>
+      </footer>
     </div>
     <script
       src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
