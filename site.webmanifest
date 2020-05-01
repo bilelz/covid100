@@ -1,6 +1,6 @@
 {
-  "short_name": "🗺️ Covic-100",
-  "name": "🗺️ Covic-100",
+  "short_name": "Covid100.fr",
+  "name": "Covid100.fr",
   "icons": [
     {
       "src": "img/covid100_192.png",
@@ -13,8 +13,8 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "/?utm_source=homescreen",
+  "start_url": "/?source=pwa",
   "background_color": "#005a04",
   "theme_color": "#005a04",
-  "display": "fullscreen"
+  "display": "standalone"
 }
