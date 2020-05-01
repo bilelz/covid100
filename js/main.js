@@ -101,9 +101,9 @@ if (navigator.share) {
 function share() {
   navigator
     .share({
-      title: "Covid-100.fr",
+      title: "Covid100.fr",
       text: "Pour voir où on peut aller à 100km de chez soi",
-      url: "https://covid-100.fr",
+      url: "https://covid100.fr",
     })
     .then(() => console.log("Successful share"))
     .catch((error) => console.log("Error sharing", error));
