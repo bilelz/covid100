@@ -1,69 +1,14 @@
-root {
-  --body-bg-color: #ffffff8f;
-  --body-bg-color-dark: #0000008f;
-  --body-color: black;
-  --body-color-dark: white;
-  --nav-bg-color: #ffffff2e;
-  --nav-bg-color-dark: #ffffff2e;
-  --nav-shadow-color: #00000033;
-  --nav-shadow-color-dark: #03a9f478;
-
-  --border-color: goldenrod;
-}
-
-.revert {
-  --body-bg-color: var(--body-bg-color-dark);
-  --body-color: var(--body-color-dark);
-  --nav-bg-color: var(--nav-bg-color-dark);
-  --nav-shadow-color: var(--nav-shadow-color-dark);
-}
-
-.visible-light,
-.revert .visible-dark {
-  font-size: 1.1rem;
-  display: inline-block;
-}
-.visible-dark,
-.revert .visible-light {
-  display: none;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --body-bg-color: var(--body-bg-color-dark);
-    --body-bg-color-light: var(--body-bg-color);
-
-    --body-color: var(--body-color-dark);
-    --body-color-light: var(--body-bg-color);
-    --nav-bg-color: var(--nav-bg-color-dark);
-    --nav-bg-color-light: var(--nav-bg-color);
-
-    --nav-shadow-color: var(--nav-shadow-color-dark);
-    --nav-shadow-color-light: var(--nav-shadow-color);
-  }
-
-  .revert {
-    --body-bg-color: var(--body-bg-color-light);
-    --body-color: var(--body-color-light);
-    --nav-bg-color: var(--nav-bg-color-light);
-    --nav-shadow-color: var(--nav-shadow-color-light);
-  }
-}
-
 body {
-  background-color: var(--body-bg-color);
+  background-color: #75ceef;
   background-size: cover;
-  color: var(--body-color);
-  background: rgb(238, 174, 202);
-  background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
-  -webkit-transition: 1s;
-  transition: 1s;
+  color: #444;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   margin: 0;
   padding: 0;
 }
+
 html {
   scroll-behavior: smooth;
 }
@@ -71,9 +16,8 @@ html {
 .container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 0;
+  padding: 0 1em;
   box-sizing: border-box;
-
   border-radius: 1em;
 }
 
@@ -81,40 +25,67 @@ nav {
   background-color: #00000026;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  position: relative;
-  z-index: 2;
+  position: absolute;
   padding: 0;
   margin: 0;
   padding: 0.5em 0;
   top: 0;
+  width: 100%;
+  z-index: 2;
+}
+
+nav .container {
+  display: flex;
+  justify-content: space-between;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  font-weight: 300;
+  padding: 1em;
+}
+
+button svg {
+  height: 18px;
+  width: 18px;
+  fill: white;
+  vertical-align: top;
 }
 
 #map {
   width: 100%;
   border-radius: 2em;
   margin: 0;
+  padding: 0;
   height: 100vh;
   position: relative;
   top: 0;
   z-index: 1;
-  margin-top: -4em;
-  margin-bottom: -4em;
 }
 
 button {
   -webkit-appearance: none;
-  background: rgb(238, 174, 202);
-  background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border: 1px solid white;
   padding: 0.5em 1em;
   border-radius: 4em;
   color: white;
-  font-weight: bold;
+  font-weight: 300;
   line-height: 1.5em;
   font-size: 0.8rem;
 }
 
 footer {
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  padding: 0.5em 0;
   z-index: 2;
+  width: 100%;
+}
+
+.hide {
+  display: none;
 }

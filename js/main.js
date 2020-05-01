@@ -1,5 +1,6 @@
 var initLatlng = { lat: 46.911637, lng: 2.724609 },
-  circle100 = undefined;
+  circle100 = undefined,
+  marker = undefined;
 
 var map = L.map("map").setView(initLatlng, 5);
 
@@ -7,7 +8,6 @@ L.tileLayer(
   "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
   {
     maxZoom: 18,
-
     attribution:
       'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
       '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -20,14 +20,14 @@ L.tileLayer(
 map.zoomControl.setPosition("bottomright");
 
 function france() {
-  drawCircle({ latlng: initLatlng }, "Cliquez n'importe ou sur la carte pour afficher votre zone de 100km", false);
+  drawCircle({ latlng: initLatlng }, "Cliquez n'importe où sur la carte pour afficher votre zone de 100 km", false);
   map.setView(initLatlng, 5);
 }
 
 france();
 
 function onMapClick(e) {
-  drawCircle(e, null, true);
+  drawCircle(e, "Cliquez n'importe où sur la carte pour afficher votre zone de 100 km", true);
 }
 
 map.on("click", onMapClick);
@@ -35,6 +35,11 @@ map.on("click", onMapClick);
 function drawCircle(e, msg, fit) {
   if (circle100 !== undefined) {
     map.removeLayer(circle100);
+  }
+  if (marker !== undefined) {
+    marker.setLatLng(e.latlng);
+  } else {
+    marker = L.marker(e.latlng).addTo(map);
   }
 
   circle100 = L.circle(e.latlng, 100 * 1000, {
@@ -44,8 +49,11 @@ function drawCircle(e, msg, fit) {
   }).addTo(map);
 
   if (msg) {
-    var popup = L.popup();
-    popup.setLatLng(e.latlng).setContent(msg).openOn(map);
+    if (!fit) {
+      marker.bindPopup(msg).openPopup();
+    } else {
+      marker.bindPopup(msg);
+    }
   }
 
   map.panTo(new L.LatLng(e.latlng.lat, e.latlng.lng), { duration: 1 });
@@ -82,6 +90,21 @@ function gps() {
     );
   } else {
     /* la géolocalisation n'est pas disponible */
-    document.getElementById("gps").innerHTML = "<p>Votre appareil ne permet la geo-localisation, essayez depuis un autre</p>";
+    document.getElementById("gps").innerHTML = "<p>Votre appareil ne permet la geo-localisation, essayez depuis un autre appareil</p>";
   }
+}
+
+if (navigator.share) {
+  document.getElementById("share").classList.remove("hide");
+}
+
+function share() {
+  navigator
+    .share({
+      title: "Covid-100.fr",
+      text: "Pour voir où on peut aller à 100km de chez soi",
+      url: "https://covid-100.fr",
+    })
+    .then(() => console.log("Successful share"))
+    .catch((error) => console.log("Error sharing", error));
 }
