@@ -89,3 +89,10 @@ footer {
 .hide {
   display: none;
 }
+
+/* features de ouf */
+.no-gps [data-gps],
+.no-share [data-share],
+.centered [data-centered] {
+  display: none;
+}
