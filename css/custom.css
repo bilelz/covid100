@@ -16,7 +16,7 @@ html {
 .container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 0 1em;
+  padding: 0 0.5em;
   box-sizing: border-box;
   border-radius: 1em;
 }
@@ -43,7 +43,7 @@ a {
   color: black;
   text-decoration: none;
   font-weight: 300;
-  padding: 1em;
+  padding: 1em 0.5em;
 }
 
 button svg {
