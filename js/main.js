@@ -19,9 +19,7 @@ if ("serviceWorker" in navigator) {
 var initLatlng = { lat: 46.911637, lng: 2.724609 },
   circle100 = undefined,
   marker = undefined;
-ads = "";
-// '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8845074534433406" data-ad-slot="6628551281" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
-
+ads = '<a href="https://www.booking.com/index.html?aid=2018298" target="_blank" class="link">🏕️ Trouvez des vacances proches de chez vous 🏖️</a>';
 var map = L.map("map").setView(initLatlng, 5);
 
 L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
@@ -32,7 +30,7 @@ map.zoomControl.setPosition("bottomright");
 
 function france() {
   var msg =
-    "Cliquez n'importe où sur la carte pour afficher votre zone de 100 km <br/> " +
+    "Cliquez n'importe où sur la carte pour afficher une zone de 100 km <br/> " +
     '<span data-gps> ou <button type="button" onclick="gps()">cliquez ici</button> pour être géo-localisé.</span>';
   drawCircle({ latlng: initLatlng }, msg, false);
   map.setView(initLatlng, 5);
@@ -42,7 +40,7 @@ function france() {
 france();
 
 function onMapClick(e) {
-  drawCircle(e, "Cliquez n'importe où sur la carte pour afficher votre zone de 100 km" + ads, true);
+  drawCircle(e, ads, true);
 }
 
 map.on("click", onMapClick);
@@ -67,11 +65,11 @@ function drawCircle(e, msg, fit) {
   }
 
   if (msg) {
-    if (!fit) {
-      marker.bindPopup(msg).openPopup();
-    } else {
-      marker.bindPopup(msg);
-    }
+    // if (!fit) {
+    marker.bindPopup(msg).openPopup();
+    // } else {
+    //   marker.bindPopup(msg);
+    // }
   }
 
   map.panTo(new L.LatLng(e.latlng.lat, e.latlng.lng), { duration: 1 });
