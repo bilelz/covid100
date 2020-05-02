@@ -5,15 +5,22 @@ if ("geolocation" in navigator === false) {
 if (navigator.share === undefined) {
   document.querySelector("body").classList.add("no-share");
 }
-if (navigator.serviceWorker && !navigator.serviceWorker.controller) {
-  navigator.serviceWorker.register("/sw.js");
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/sw.js").then(
+    function () {
+      console.log("CLIENT: service worker registration complete.");
+    },
+    function () {
+      console.log("CLIENT: service worker registration failure.");
+    }
+  );
 }
 
 var initLatlng = { lat: 46.911637, lng: 2.724609 },
   circle100 = undefined,
   marker = undefined;
-ads =
-  '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8845074534433406" data-ad-slot="6628551281" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
+ads = "";
+// '<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-8845074534433406" data-ad-slot="6628551281" data-ad-format="auto" data-full-width-responsive="true"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script>';
 
 var map = L.map("map").setView(initLatlng, 5);
 
@@ -42,19 +49,22 @@ map.on("click", onMapClick);
 
 function drawCircle(e, msg, fit) {
   if (circle100 !== undefined) {
-    map.removeLayer(circle100);
+    // map.removeLayer(circle100);
+    circle100.setLatLng(e.latlng);
+  } else {
+    circle100 = L.circle(e.latlng, 100 * 1000, {
+      color: "salmon",
+      fillColor: "white",
+      fillOpacity: 0.5,
+      weight: 3,
+      dashArray: "5,10",
+    }).addTo(map);
   }
   if (marker !== undefined) {
     marker.setLatLng(e.latlng);
   } else {
     marker = L.marker(e.latlng).addTo(map);
   }
-
-  circle100 = L.circle(e.latlng, 100 * 1000, {
-    color: "white",
-    fillColor: "white",
-    fillOpacity: 0.5,
-  }).addTo(map);
 
   if (msg) {
     if (!fit) {
@@ -102,7 +112,7 @@ function share() {
   navigator
     .share({
       title: document.title,
-      text: document.querySelector("meta[property='description']").getAttribute("content"),
+      text: document.querySelector("meta[name='description']").getAttribute("content"),
       url: "https://covid100.fr",
     })
     .then(() => console.log("Successful share"))
