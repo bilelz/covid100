@@ -27,17 +27,14 @@ L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
 }).addTo(map);
 map.zoomControl.setPosition("bottomright");
 
-function france() {
-  var msg =
-    "Cliquez n'importe où sur la carte pour afficher une zone de 100 km <br/> " +
-    '<span data-gps> ou <button type="button" onclick="gps()">cliquez ici</button> pour être géo-localisé.</span>';
-  radius = 100 * 1000;
-  drawCircle({ latlng: initLatlng }, msg, false);
-  map.setView(initLatlng, 5);
-  document.querySelector("body").classList.add("centered");
+function setRadius(d) {
+  if (circle100) {
+    radius = d;
+    circle100.setRadius(radius);
+    map.fitBounds(circle100.getBounds(), { padding: [10, 10] });
+    document.querySelector("body").setAttribute("data-radius", radius);
+  }
 }
-
-france();
 
 function onMapClick(e) {
   drawCircle(e, ads, true);
@@ -80,12 +77,17 @@ function drawCircle(e, msg, fit) {
   document.querySelector("body").classList.remove("centered");
 }
 
-function setRadius(d) {
-  radius = d;
-  circle100.setRadius(radius);
-  map.fitBounds(circle100.getBounds(), { padding: [10, 10] });
-  document.querySelector("body").setAttribute("data-radius", radius);
+function france() {
+  var msg =
+    "Cliquez n'importe où sur la carte pour afficher une zone de 100 km <br/> " +
+    '<span data-gps> ou <button type="button" onclick="gps()">cliquez ici</button> pour être géo-localisé.</span>';
+  setRadius(100 * 1000);
+  drawCircle({ latlng: initLatlng }, msg, false);
+  map.setView(initLatlng, 5);
+  document.querySelector("body").classList.add("centered");
 }
+
+france();
 
 function gps() {
   document.getElementById("gpsStatus").innerText = "⌛...";

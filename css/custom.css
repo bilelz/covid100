@@ -40,6 +40,12 @@ nav {
 nav .container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+nav .container > div {
+  align-items: center;
+  display: inline-flex;
 }
 
 a {
@@ -106,6 +112,14 @@ footer {
   z-index: 4;
   height: 200px;
   width: 100%;
+}
+
+#gpsStatus {
+  white-space: nowrap;
+  overflow-y: auto;
+  font-size: 14px;
+  max-width: 100px;
+  display: inline-block;
 }
 
 .leaflet-popup-content {

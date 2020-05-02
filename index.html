@@ -47,12 +47,11 @@
     <div>
       <nav>
         <div class="container">
+          <a href="">
+            <img src="img/covid100_192.png" alt="" class="hide-if-mobile" />
+            Covid100.fr
+          </a>
           <div>
-            <a href="">
-              <img src="img/covid100_192.png" alt="" class="hide-if-mobile" />
-              Covid100.fr
-            </a>
-
             <button type="button" onclick="gps()">
               <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                 <path d="M0 0h24v24H0z" fill="none" />
@@ -61,11 +60,9 @@
                 />
               </svg>
               &nbsp;
-              <span>Autour de chez moi</span>
+              <span class="hide-if-mobile">Autour de chez moi</span>
             </button>
             <span id="gpsStatus"></span>
-          </div>
-          <div>
             <button type="button" data-share onclick="share()" aria-label="Partager la page">
               <span class="hide-if-mobile">Partager</span>
               📤
@@ -84,7 +81,7 @@
               />
               <path d="M0 0h24v24H0z" fill="none" />
             </svg>
-            Centrer sur la France
+            Recentrer&nbsp; <span class="hide-if-mobile"> sur la France</span>
           </button>
           <button type="button" data-1000 onclick="setRadius(1000)">
             1km
@@ -124,7 +121,7 @@
                 />
               </g>
             </svg>
-            &nbsp; @Covid100fr
+            <span class="hide-if-mobile">@Covid100fr</span>
           </a>
         </div>
       </footer>
