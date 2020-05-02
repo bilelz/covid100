@@ -16,7 +16,6 @@ var initLatlng = { lat: 46.911637, lng: 2.724609 },
   circle100 = undefined,
   marker = undefined,
   radius = 100 * 1000,
-  // ads = '<a href="https://www.booking.com/index.html?aid=2018298" target="_blank" class="link">🏕️ Trouvez des vacances proches de chez vous 🏖️</a>';
   ads = "",
   map = L.map("map").setView(initLatlng, 5);
 
