@@ -7,20 +7,20 @@ if (navigator.share === undefined) {
 }
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/sw.js").then(
-    function () {
-      console.log("CLIENT: service worker registration complete.");
-    },
-    function () {
-      console.log("CLIENT: service worker registration failure.");
-    }
+    function () {},
+    function () {}
   );
 }
 
 var initLatlng = { lat: 46.911637, lng: 2.724609 },
   circle100 = undefined,
-  marker = undefined;
-ads = '<a href="https://www.booking.com/index.html?aid=2018298" target="_blank" class="link">🏕️ Trouvez des vacances proches de chez vous 🏖️</a>';
-var map = L.map("map").setView(initLatlng, 5);
+  marker = undefined,
+  radius = 100 * 1000,
+  // ads = '<a href="https://www.booking.com/index.html?aid=2018298" target="_blank" class="link">🏕️ Trouvez des vacances proches de chez vous 🏖️</a>';
+  ads = "",
+  map = L.map("map").setView(initLatlng, 5);
+
+document.querySelector("body").setAttribute("data-radius", radius);
 
 L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
   maxZoom: 20,
@@ -32,6 +32,7 @@ function france() {
   var msg =
     "Cliquez n'importe où sur la carte pour afficher une zone de 100 km <br/> " +
     '<span data-gps> ou <button type="button" onclick="gps()">cliquez ici</button> pour être géo-localisé.</span>';
+  radius = 100 * 1000;
   drawCircle({ latlng: initLatlng }, msg, false);
   map.setView(initLatlng, 5);
   document.querySelector("body").classList.add("centered");
@@ -50,7 +51,7 @@ function drawCircle(e, msg, fit) {
     // map.removeLayer(circle100);
     circle100.setLatLng(e.latlng);
   } else {
-    circle100 = L.circle(e.latlng, 100 * 1000, {
+    circle100 = L.circle(e.latlng, radius, {
       color: "salmon",
       fillColor: "white",
       fillOpacity: 0.5,
@@ -78,6 +79,13 @@ function drawCircle(e, msg, fit) {
     map.fitBounds(circle100.getBounds(), { padding: [10, 10] });
   }
   document.querySelector("body").classList.remove("centered");
+}
+
+function setRadius(d) {
+  radius = d;
+  circle100.setRadius(radius);
+  map.fitBounds(circle100.getBounds(), { padding: [10, 10] });
+  document.querySelector("body").setAttribute("data-radius", radius);
 }
 
 function gps() {
@@ -116,3 +124,16 @@ function share() {
     .then(() => console.log("Successful share"))
     .catch((error) => console.log("Error sharing", error));
 }
+
+console.log(
+  "%c 🏴‍☠️PIRATE! ",
+  [
+    "background: linear-gradient(to right, #ffc371, #ff5f6d)",
+    "color: white",
+    "display: block",
+    "text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3)",
+    "line-height: 40px",
+    "text-align: center",
+    "font-size: 40px",
+  ].join(";")
+);
