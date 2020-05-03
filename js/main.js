@@ -37,7 +37,12 @@ function setRadius(d) {
 }
 
 function onMapClick(e) {
-  drawCircle(e, ads, true);
+  drawCircle(
+    e,
+    '<button type="button" data-1000  class="invert small" onclick="setRadius(1000)">1km</button>' +
+      '<button type="button" data-100000  class="invert small" onclick="setRadius(100000)">100km</button>',
+    true
+  );
 }
 
 map.on("click", onMapClick);
@@ -62,11 +67,11 @@ function drawCircle(e, msg, fit) {
   }
 
   if (msg) {
-    // if (!fit) {
-    marker.bindPopup(msg).openPopup();
-    // } else {
-    //   marker.bindPopup(msg);
-    // }
+    if (!fit) {
+      marker.bindPopup(msg).openPopup();
+    } else {
+      marker.bindPopup(msg);
+    }
   }
 
   map.panTo(new L.LatLng(e.latlng.lat, e.latlng.lng), { duration: 1 });
@@ -103,8 +108,8 @@ function gps() {
       drawCircle(
         { latlng: { lat: position.coords.latitude, lng: position.coords.longitude } },
         "🏠 Autour de chez vous" +
-          '<br/><button type="button" data-1000 onclick="setRadius(1000)">1km</button>' +
-          '<button type="button" data-100000 onclick="setRadius(100000)">100km</button>',
+          '<br/><button type="button" data-1000  class="invert small" onclick="setRadius(1000)">1km</button>' +
+          '<button type="button" data-100000  class="invert small" onclick="setRadius(100000)">100km</button>',
         true
       );
       gpsLogHide();
