@@ -9,7 +9,8 @@ body {
   -webkit-font-smoothing: antialiased;
   margin: 0;
   padding: 0;
-  transition: 0.3s ease-out;
+  opacity: 1;
+  transition: 1s ease-out;
 }
 
 html {
@@ -175,8 +176,8 @@ footer {
 }
 
 .gps-waiting {
-  opacity: 0.2;
-  background: black;
+  filter: grayscale(10%) brightness(20%);
+  transition: 0.3s ease-out;
 }
 
 @media (max-width: 400px) {

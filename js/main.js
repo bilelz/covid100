@@ -94,9 +94,19 @@ france();
 function gps() {
   gpsLog("⌛...");
   document.querySelector("body").classList.add("gps-waiting");
+  setTimeout(function () {
+    document.querySelector("body").classList.remove("gps-waiting");
+  }, 3000);
+
   navigator.geolocation.getCurrentPosition(
     function (position) {
-      drawCircle({ latlng: { lat: position.coords.latitude, lng: position.coords.longitude } }, "🏠 Autour de chez vous" + ads, true);
+      drawCircle(
+        { latlng: { lat: position.coords.latitude, lng: position.coords.longitude } },
+        "🏠 Autour de chez vous" +
+          '<br/><button type="button" data-1000 onclick="setRadius(1000)">1km</button>' +
+          '<button type="button" data-100000 onclick="setRadius(100000)">100km</button>',
+        true
+      );
       gpsLogHide();
     },
     function (error) {
