@@ -14,7 +14,7 @@
     }
   ],
   "start_url": "/?source=homescreen",
-  "background_color": "#ffc371",
-  "theme_color": "#ffc371",
+  "background_color": "#ff5f6d",
+  "theme_color": "#ff5f6d",
   "display": "standalone"
 }
