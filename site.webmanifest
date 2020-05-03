@@ -3,12 +3,12 @@
   "name": "Covid100.fr",
   "icons": [
     {
-      "src": "img/covid100_192.png",
+      "src": "img/logo_192.jpg",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "img/covid100_512.png",
+      "src": "img/logo_512.jpg",
       "type": "image/png",
       "sizes": "512x512"
     }

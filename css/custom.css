@@ -57,6 +57,15 @@ a {
   display: inline-flex;
 }
 
+.brand {
+  background-color: #ffc371;
+  padding: 0.5em 0.5em;
+  background: linear-gradient(to right, rgba(255, 195, 113, 0.5), rgba(255, 95, 109, 0.5));
+  font-size: 1.5em;
+  color: white;
+  text-shadow: 0 1px 1px #444;
+}
+
 nav img {
   height: 1em;
   vertical-align: text-bottom;
@@ -88,6 +97,18 @@ button,
   font-size: 0.8rem;
   display: inline-flex;
   align-items: center;
+}
+
+.invert {
+  background-color: #ffc371;
+  background: linear-gradient(to right, rgba(255, 195, 113, 0.5), rgba(255, 95, 109, 0.5));
+  font-weight: 400;
+  color: black;
+  border-color: #ffc371;
+}
+
+.invert svg {
+  fill: black;
 }
 
 button svg,
