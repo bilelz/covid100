@@ -17,7 +17,7 @@ var initLatlng = { lat: 46.911637, lng: 2.724609 },
   marker = undefined,
   radius = 100 * 1000,
   ads = "",
-  map = L.map("map").setView(initLatlng, 5);
+  map = L.map("map").setView(initLatlng, 7);
 
 document.querySelector("body").setAttribute("data-radius", radius);
 
@@ -85,7 +85,7 @@ function france() {
     "&nbsp;Cliquez ici pour être géo-localisé.</button>";
   setRadius(100 * 1000);
   drawCircle({ latlng: initLatlng }, msg, false);
-  map.setView(initLatlng, 5);
+  map.setView(initLatlng, 6);
   document.querySelector("body").classList.add("centered");
 }
 
