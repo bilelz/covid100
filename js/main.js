@@ -93,6 +93,7 @@ france();
 
 function gps() {
   gpsLog("⌛...");
+  document.querySelector("body").classList.add("gps-waiting");
   navigator.geolocation.getCurrentPosition(
     function (position) {
       drawCircle({ latlng: { lat: position.coords.latitude, lng: position.coords.longitude } }, "🏠 Autour de chez vous" + ads, true);
@@ -122,12 +123,15 @@ function gpsLog(msg) {
   document.getElementById("gpsStatus").innerHTML = msg;
 }
 function gpsErrorLog(msg) {
+  document.querySelector("body").classList.remove("gps-waiting");
   document.getElementById("gpsStatus").classList.remove("hidden");
   document.getElementById("gpsStatus").innerHTML = msg + ' <button type="button" onclick="gpsLogHide()" class="invert small">ok</button>';
+  document.querySelector("#gpsStatus button").focus();
 }
 function gpsLogHide() {
   document.getElementById("gpsStatus").classList.add("hidden");
   document.getElementById("gpsStatus").innerHTML = "";
+  document.querySelector("body").classList.remove("gps-waiting");
 }
 
 function share() {
