@@ -9,8 +9,8 @@
     <link rel="apple-touch-icon" href="img/logo.jpg" />
     <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16" />
-    <link rel="stylesheet" href="css/custom.css?pwa" />
-    <meta name="theme-color" content="#fafafa" />
+    <link rel="stylesheet" href="css/custom.css?final" />
+    <meta name="theme-color" content="#ffc371" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
@@ -66,16 +66,17 @@
                   d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"
                 />
               </svg>
-              <span class="hide-if-mobile">&nbsp;Autour de moi</span>
+              <span class="hidden-if-mobile">&nbsp;Autour de moi</span>
             </button>
-            <span id="gpsStatus"></span>
+
             <button type="button" data-share onclick="share()" aria-label="Partager la page">
-              <span class="hide-if-mobile">Partager</span>
+              <span class="hidden-if-mobile">Partager</span>
               📤
             </button>
           </div>
         </div>
       </nav>
+      <div id="gpsStatus" class="hidden"></div>
 
       <div id="map"></div>
       <footer>
@@ -87,7 +88,7 @@
               />
               <path d="M0 0h24v24H0z" fill="none" />
             </svg>
-            Recentrer&nbsp; <span class="hide-if-mobile"> sur la France</span>
+            Recentrer&nbsp; <span class="hidden-if-mobile"> sur la France</span>
           </button>
 
           <a href="https://twitter.com/Covid100fr" target="_blank" class="button">
@@ -133,7 +134,7 @@
       integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
       crossorigin=""
     ></script>
-    <script src="js/main.js?zoom"></script>
+    <script src="js/main.js?final"></script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-4041493-17"></script>
     <script>

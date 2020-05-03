@@ -92,29 +92,42 @@ function france() {
 france();
 
 function gps() {
-  document.getElementById("gpsStatus").innerText = "⌛...";
+  gpsLog("⌛...");
   navigator.geolocation.getCurrentPosition(
     function (position) {
       drawCircle({ latlng: { lat: position.coords.latitude, lng: position.coords.longitude } }, "🏠 Autour de chez vous" + ads, true);
-      document.getElementById("gpsStatus").innerText = "";
+      gpsLogHide();
     },
     function (error) {
       switch (error.code) {
         case error.PERMISSION_DENIED:
-          document.getElementById("gpsStatus").innerText = "Vous avez refusé la demande de localisation";
+          gpsErrorLog("Vous avez refusé la demande de localisation");
           break;
         case error.POSITION_UNAVAILABLE:
-          document.getElementById("gpsStatus").innerText = "Information localisation indisponible";
+          gpsErrorLog("Information localisation indisponible");
           break;
         case error.TIMEOUT:
-          document.getElementById("gpsStatus").innerText = "Temps d'attente trop long";
+          gpsErrorLog("Temps d'attente trop long");
           break;
         case error.UNKNOWN_ERROR:
-          document.getElementById("gpsStatus").innerText = "Bouh... erreur inconnue";
+          gpsErrorLog("Bouh... erreur inconnue");
           break;
       }
     }
   );
+}
+
+function gpsLog(msg) {
+  document.getElementById("gpsStatus").classList.remove("hidden");
+  document.getElementById("gpsStatus").innerHTML = msg;
+}
+function gpsErrorLog(msg) {
+  document.getElementById("gpsStatus").classList.remove("hidden");
+  document.getElementById("gpsStatus").innerHTML = msg + ' <button type="button" onclick="gpsLogHide()" class="invert small">ok</button>';
+}
+function gpsLogHide() {
+  document.getElementById("gpsStatus").classList.add("hidden");
+  document.getElementById("gpsStatus").innerHTML = "";
 }
 
 function share() {

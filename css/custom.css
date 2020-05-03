@@ -111,6 +111,12 @@ button,
   fill: black;
 }
 
+.small {
+  padding: 0.25em;
+  margin: 0;
+  line-height: 1;
+}
+
 button svg,
 .button svg {
   height: 18px;
@@ -136,11 +142,13 @@ footer {
 }
 
 #gpsStatus {
-  white-space: nowrap;
-  overflow-y: auto;
-  font-size: 14px;
-  max-width: 100px;
-  display: inline-block;
+  position: absolute;
+  top: 4em;
+  z-index: 2;
+  padding: 0.5em 1em;
+  background: white;
+  right: 0.5em;
+  font-size: 0.8em;
 }
 
 .leaflet-popup-content {
@@ -152,7 +160,7 @@ footer {
   padding: 0;
 }
 
-.hide {
+.hidden {
   display: none;
 }
 
@@ -166,7 +174,7 @@ footer {
 }
 
 @media (max-width: 400px) {
-  .hide-if-mobile {
+  .hidden-if-mobile {
     display: none;
   }
 }
