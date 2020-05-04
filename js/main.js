@@ -49,7 +49,6 @@ map.on("click", onMapClick);
 
 function drawCircle(e, msg, fit) {
   if (circle100 !== undefined) {
-    // map.removeLayer(circle100);
     circle100.setLatLng(e.latlng);
   } else {
     circle100 = L.circle(e.latlng, radius, {
@@ -80,6 +79,7 @@ function drawCircle(e, msg, fit) {
     map.fitBounds(circle100.getBounds(), { padding: [10, 10] });
   }
   document.querySelector("body").classList.remove("centered");
+  localStorage.setItem("latestLatLng", JSON.stringify(e.latlng));
 }
 
 function france() {
@@ -94,8 +94,6 @@ function france() {
   document.querySelector("body").classList.add("centered");
 }
 
-france();
-
 function gps() {
   gpsLog("⌛...");
   document.querySelector("body").classList.add("gps-waiting");
@@ -105,6 +103,7 @@ function gps() {
 
   navigator.geolocation.getCurrentPosition(
     function (position) {
+      localStorage.setItem("gps", "ok");
       drawCircle(
         { latlng: { lat: position.coords.latitude, lng: position.coords.longitude } },
         "🏠 Autour de chez vous" +
@@ -115,6 +114,7 @@ function gps() {
       gpsLogHide();
     },
     function (error) {
+      localStorage.removeItem("gps");
       switch (error.code) {
         case error.PERMISSION_DENIED:
           gpsErrorLog("Vous avez refusé la demande de localisation");
@@ -158,6 +158,29 @@ function share() {
     })
     .then(() => console.log("Successful share"))
     .catch((error) => console.log("Error sharing", error));
+}
+
+function rgpd() {
+  localStorage.setItem("rgpd", "ok");
+  document.getElementById("rgpd").classList.add("hidden");
+}
+
+if (localStorage.getItem("rgpd")) {
+  document.getElementById("rgpd").classList.add("hidden");
+}
+
+// init circle position
+if (localStorage.getItem("gps")) {
+  gps();
+} else if (localStorage.getItem("latestLatLng")) {
+  drawCircle(
+    { latlng: JSON.parse(localStorage.getItem("latestLatLng")) },
+    '<button type="button" data-1000  class="invert small" onclick="setRadius(1000)">1km</button>' +
+      '<button type="button" data-100000  class="invert small" onclick="setRadius(100000)">100km</button>',
+    true
+  );
+} else {
+  france();
 }
 
 console.log(

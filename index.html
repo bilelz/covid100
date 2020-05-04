@@ -9,7 +9,7 @@
     <link rel="apple-touch-icon" href="img/logo.jpg" />
     <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16" />
-    <link rel="stylesheet" href="css/custom.css?km" />
+    <link rel="stylesheet" href="css/custom.css?rgpd" />
     <meta name="theme-color" content="#eda988" />
     <link
       rel="stylesheet"
@@ -130,14 +130,21 @@
           </a>
         </div>
       </footer>
-      <!-- <div id="aaa"></div> -->
+      <div id="rgpd">
+        <div>
+          🍪 ce site utilise google analytics en mode anonyme 🍪
+        </div>
+        <button type="button" onclick="rgpd()" class="invert small">
+          OK
+        </button>
+      </div>
     </div>
     <script
       src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
       integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
       crossorigin=""
     ></script>
-    <script src="js/main.js?km"></script>
+    <script src="js/main.js?rgpd"></script>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-4041493-17"></script>
     <script>
@@ -146,8 +153,7 @@
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-
-      gtag("config", "UA-4041493-17");
+      gtag("config", "UA-4041493-17", { anonymize_ip: true });
     </script>
   </body>
 </html>

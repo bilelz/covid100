@@ -163,7 +163,7 @@ footer {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* features de ouf */
@@ -182,8 +182,31 @@ footer {
   transition: 0.3s ease-out;
 }
 
+#rgpd {
+  background: rgba(255, 255, 255, 0.5);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  font-size: 0.8em;
+  text-align: left;
+  border-radius: 1em;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+  padding: 0.5em;
+  width: 370px;
+  left: calc(50% - 370px / 2);
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+}
+
 @media (max-width: 400px) {
   .hidden-if-mobile {
-    display: none;
+    display: none !important;
+  }
+
+  #rgpd {
+    width: 225px;
+    left: calc(50% - 225px / 2);
   }
 }
