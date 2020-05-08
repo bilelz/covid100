@@ -16,8 +16,14 @@ var initLatlng = { lat: 46.911637, lng: 2.724609 },
   circle100 = undefined,
   marker = undefined,
   radius = 100 * 1000,
-  ads = "",
-  map = L.map("map").setView(initLatlng, 7);
+  camping =
+    '<a href="https://www.awin1.com/cread.php?awinmid=13329&awinaffid=714551&clickref=&ued=" class="link" target="_blank" rel="noopener">' +
+    '<span class="emoji">🏕️</span> <span class="text">Locations de vacances près d\'ici</span> <span class="emoji">🏖️</span>' +
+    "</a>",
+  button1_100km =
+    'Voir aussi <button type="button" data-1000  class="invert small" onclick="setRadius(1000)">1km</button>' +
+    '<button type="button" data-100000  class="invert small" onclick="setRadius(100000)">100km</button> autour.';
+map = L.map("map").setView(initLatlng, 7);
 
 document.querySelector("body").setAttribute("data-radius", radius);
 
@@ -37,12 +43,7 @@ function setRadius(d) {
 }
 
 function onMapClick(e) {
-  drawCircle(
-    e,
-    '<button type="button" data-1000  class="invert small" onclick="setRadius(1000)">1km</button>' +
-      '<button type="button" data-100000  class="invert small" onclick="setRadius(100000)">100km</button>',
-    true
-  );
+  drawCircle(e, button1_100km + camping, true);
 }
 
 map.on("click", onMapClick);
@@ -66,11 +67,11 @@ function drawCircle(e, msg, fit) {
   }
 
   if (msg) {
-    if (!fit) {
-      marker.bindPopup(msg).openPopup();
-    } else {
-      marker.bindPopup(msg);
-    }
+    // if (!fit) {
+    marker.bindPopup(msg).openPopup();
+    // } else {
+    //   marker.bindPopup(msg);
+    // }
   }
 
   map.panTo(new L.LatLng(e.latlng.lat, e.latlng.lng), { duration: 1 });
@@ -104,13 +105,7 @@ function gps() {
   navigator.geolocation.getCurrentPosition(
     function (position) {
       localStorage.setItem("gps", "ok");
-      drawCircle(
-        { latlng: { lat: position.coords.latitude, lng: position.coords.longitude } },
-        "🏠 Autour de chez vous" +
-          '<br/><button type="button" data-1000  class="invert small" onclick="setRadius(1000)">1km</button>' +
-          '<button type="button" data-100000  class="invert small" onclick="setRadius(100000)">100km</button>',
-        true
-      );
+      drawCircle({ latlng: { lat: position.coords.latitude, lng: position.coords.longitude } }, "🏠" + button1_100km + camping, true);
       gpsLogHide();
     },
     function (error) {
@@ -173,18 +168,13 @@ if (localStorage.getItem("rgpd")) {
 if (localStorage.getItem("gps")) {
   gps();
 } else if (localStorage.getItem("latestLatLng")) {
-  drawCircle(
-    { latlng: JSON.parse(localStorage.getItem("latestLatLng")) },
-    '<button type="button" data-1000  class="invert small" onclick="setRadius(1000)">1km</button>' +
-      '<button type="button" data-100000  class="invert small" onclick="setRadius(100000)">100km</button>',
-    true
-  );
+  drawCircle({ latlng: JSON.parse(localStorage.getItem("latestLatLng")) }, button1_100km + camping, true);
 } else {
   france();
 }
 
 console.log(
-  "%c 🏴‍☠️PIRATE! ",
+  "%c  🏴‍☠️TIPIAK! 🏴‍☠️PIRATE! ",
   [
     "background: linear-gradient(to right, #ffc371, #ff5f6d)",
     "color: white",
