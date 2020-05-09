@@ -12,25 +12,84 @@ if ("serviceWorker" in navigator) {
   );
 }
 
-var initLatlng = { lat: 46.911637, lng: 2.724609 },
-  circle100 = undefined,
-  marker = undefined,
-  radius = 100 * 1000,
+const initLatlng = { lat: 46.911637, lng: 2.724609 },
   camping =
     '<a href="https://www.awin1.com/cread.php?awinmid=13329&awinaffid=714551&clickref=&ued=" class="link" target="_blank" rel="noopener">' +
     '<span class="emoji">🏕️</span> <span class="text">Locations de vacances près d\'ici</span> <span class="emoji">🏖️</span>' +
     "</a>",
   button1_100km =
     'Voir aussi <button type="button" data-1000  class="invert small" onclick="setRadius(1000)">1km</button>' +
-    '<button type="button" data-100000  class="invert small" onclick="setRadius(100000)">100km</button> autour.';
-map = L.map("map").setView(initLatlng, 7);
+    '<button type="button" data-100000  class="invert small" onclick="setRadius(100000)">100km</button> autour d\'ici.';
+
+let circle100 = undefined,
+  marker = undefined,
+  radius = 100 * 1000;
+
+// map = L.map("map").setView(initLatlng, 7);
 
 document.querySelector("body").setAttribute("data-radius", radius);
 
-L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
+// L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
+//   maxZoom: 20,
+//   attribution: '&copy; Openstreetmap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+// }).addTo(map);
+// map.zoomControl.setPosition("bottomright");
+
+const OpenStreetMap_France = L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
   maxZoom: 20,
   attribution: '&copy; Openstreetmap France | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-}).addTo(map);
+});
+
+const OpenTopoMap = L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+  maxZoom: 17,
+  attribution:
+    'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)',
+});
+
+const Stadia_AlidadeSmooth = L.tileLayer("https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png", {
+  maxZoom: 20,
+  attribution:
+    '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+});
+
+const Stadia_AlidadeSmoothDark = L.tileLayer("https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png", {
+  maxZoom: 20,
+  attribution:
+    '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+});
+
+const Stadia_OSMBright = L.tileLayer("https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png", {
+  maxZoom: 20,
+  attribution:
+    '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+});
+
+const Stamen_Watercolor = L.tileLayer("https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.{ext}", {
+  attribution:
+    'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  subdomains: "abcd",
+  minZoom: 1,
+  maxZoom: 16,
+  ext: "jpg",
+});
+
+const map = L.map("map", {
+  center: initLatlng,
+  zoom: 7,
+  layers: [OpenStreetMap_France],
+});
+
+const baseLayers = {
+  "Classic (OSM)": OpenStreetMap_France,
+  OpenTopoMap: OpenTopoMap,
+  "Stadia Bright": Stadia_OSMBright,
+  Stadia: Stadia_AlidadeSmooth,
+  "Stadia sombre/dark ": Stadia_AlidadeSmoothDark,
+  "📜 Parchemin": Stamen_Watercolor,
+};
+
+L.control.layers(baseLayers, null, { position: "bottomright" }).addTo(map);
+
 map.zoomControl.setPosition("bottomright");
 
 function setRadius(d) {
@@ -84,14 +143,14 @@ function drawCircle(e, msg, fit) {
 }
 
 function france() {
-  var msg =
+  const msg =
     "Cliquez n'importe où sur la carte pour afficher une zone de 100 km <br/> " +
     '<button type="button" onclick="gps()" class="invert" data-gps>' +
     '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"> <path d="M0 0h24v24H0z" fill="none" /> <path      d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>' +
     "&nbsp;Cliquez ici pour être géo-localisé.</button>";
   setRadius(100 * 1000);
   drawCircle({ latlng: initLatlng }, msg, false);
-  map.setView(initLatlng, 6);
+  map.setView(initLatlng, 5);
   document.querySelector("body").classList.add("centered");
 }
 
