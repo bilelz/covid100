@@ -168,6 +168,24 @@ footer {
   align-items: center;
 }
 
+.leaflet-control-layers {
+  visibility: hidden;
+}
+
+.tile-toggle {
+  position: absolute;
+  bottom: 50px;
+  left: 5px;
+  z-index: 5;
+  border-radius: 8px;
+  padding: 0;
+}
+.tile-toggle img {
+  border-radius: 8;
+  width: 80px;
+  height: 80px;
+}
+
 .link .text {
   background: #ff5f6d;
   background: -webkit-linear-gradient(to left, #ff9800, #ff5f6d);
@@ -193,7 +211,9 @@ footer {
   display: none;
 }
 [data-radius="1000"] [data-1000],
-[data-radius="100000"] [data-100000] {
+[data-radius="100000"] [data-100000],
+[data-map="0"] [data-map="0"],
+[data-map="1"] [data-map="1"] {
   display: none;
 }
 
