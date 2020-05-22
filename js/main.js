@@ -185,14 +185,11 @@ function gpsLogHide() {
 }
 
 function share() {
-  navigator
-    .share({
-      title: document.title,
-      text: document.querySelector("meta[name='description']").getAttribute("content"),
-      url: "https://covid100.fr",
-    })
-    .then(() => console.log("Successful share"))
-    .catch((error) => console.log("Error sharing", error));
+  navigator.share({
+    title: document.title,
+    text: document.querySelector("meta[name='description']").getAttribute("content"),
+    url: "https://covid100.fr",
+  });
 }
 
 function rgpd() {
