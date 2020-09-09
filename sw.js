@@ -1,4 +1,4 @@
-// are you looking a pwa?
+// are you looking for a pwa?
 self.addEventListener("install", (event) => {
   self.skipWaiting();
 });
