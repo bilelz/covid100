@@ -18,8 +18,8 @@ const initLatlng = { lat: 46.911637, lng: 2.724609 },
     '<span class="emoji">🏕️</span> <span class="text">Locations de vacances près d\'ici</span> <span class="emoji">🏖️</span>' +
     "</a>",*/
   button1_100km =
-    'Voir aussi <button type="button" data-10000  class="invert small" onclick="setRadius(10000)">10km</button>' +
-    '<button type="button" data-100000  class="invert small" onclick="setRadius(100000)">100km</button> autour d\'ici.';
+    `Cliquez n'importe où sur la carte ou voir aussi <button type="button" data-10000  class="invert small" onclick="setRadius(10000)">10km</button>
+    <button type="button" data-100000  class="invert small" onclick="setRadius(100000)">100km</button> autour d'ici.`;
 
 let circle100 = undefined,
   marker = undefined,
