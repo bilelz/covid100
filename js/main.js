@@ -18,7 +18,7 @@ const initLatlng = { lat: 46.911637, lng: 2.724609 },
     '<span class="emoji">🏕️</span> <span class="text">Locations de vacances près d\'ici</span> <span class="emoji">🏖️</span>' +
     "</a>",*/
   button1_100km =
-    'Voir aussi <button type="button" data-1000  class="invert small" onclick="setRadius(10000)">10km</button>' +
+    'Voir aussi <button type="button" data-10000  class="invert small" onclick="setRadius(10000)">10km</button>' +
     '<button type="button" data-100000  class="invert small" onclick="setRadius(100000)">100km</button> autour d\'ici.';
 
 let circle100 = undefined,
@@ -125,7 +125,7 @@ function drawCircle(e, msg, fit) {
 
 function france() {
   const msg =
-    "Cliquez n'importe où sur la carte pour afficher une zone de 100 km <br/> " +
+    "Cliquez n'importe où sur la carte pour afficher une zone de <span data-10000>10</span><span data-100000>100</span> km <br/> " +
     '<button type="button" onclick="gps()" class="invert" data-gps>' +
     '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"> <path d="M0 0h24v24H0z" fill="none" /> <path      d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>' +
     "&nbsp;Cliquez ici pour être géo-localisé.</button>";
