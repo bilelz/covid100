@@ -78,8 +78,9 @@ function setRadius(d) {
     radius = d;
     circle100.setRadius(radius);
     map.fitBounds(circle100.getBounds(), { padding: [10, 10] });
-    document.querySelector("body").setAttribute("data-radius", radius);
-  }
+   } 
+document.querySelector("body").setAttribute("data-radius", radius);
+  
 }
 
 function onMapClick(e) {
