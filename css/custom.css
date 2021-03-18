@@ -210,7 +210,7 @@ footer {
 .centered [data-centered] {
   display: none;
 }
-[data-radius="1000"] [data-1000],
+[data-radius="10000"] [data-10000],
 [data-radius="100000"] [data-100000],
 [data-map="0"] [data-map="0"],
 [data-map="1"] [data-map="1"] {
