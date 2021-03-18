@@ -13,10 +13,10 @@ if ("serviceWorker" in navigator) {
 }
 
 const initLatlng = { lat: 46.911637, lng: 2.724609 },
-  camping =
-    '<a href="https://www.awin1.com/cread.php?awinmid=13329&awinaffid=714551&clickref=&ued=" class="link" target="_blank" rel="noopener">' +
+  camping = '',
+    /*'<a href="https://www.awin1.com/cread.php?awinmid=13329&awinaffid=714551&clickref=&ued=" class="link" target="_blank" rel="noopener">' +
     '<span class="emoji">🏕️</span> <span class="text">Locations de vacances près d\'ici</span> <span class="emoji">🏖️</span>' +
-    "</a>",
+    "</a>",*/
   button1_100km =
     'Voir aussi <button type="button" data-1000  class="invert small" onclick="setRadius(1000)">1km</button>' +
     '<button type="button" data-100000  class="invert small" onclick="setRadius(100000)">100km</button> autour d\'ici.';
