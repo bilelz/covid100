@@ -23,7 +23,7 @@ const initLatlng = { lat: 46.911637, lng: 2.724609 },
 
 let circle100 = undefined,
   marker = undefined,
-  radius = 100 * 1000;
+  radius = 10 * 1000;
 
 // map = L.map("map").setView(initLatlng, 7);
 
