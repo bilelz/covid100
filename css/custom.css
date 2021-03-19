@@ -104,7 +104,8 @@ button,
   align-items: center;
 }
 
-.invert, .button.invert {
+.invert,
+.button.invert {
   background-color: #ffc371;
   background: linear-gradient(to right, rgba(255, 195, 113, 0.5), rgba(255, 95, 109, 0.5));
   font-weight: 400;
@@ -112,7 +113,8 @@ button,
   border-color: #ffc371;
 }
 
-.invert svg, .button.invert svg {
+.invert svg,
+.button.invert svg {
   fill: black;
 }
 
@@ -171,6 +173,13 @@ footer {
 
 .leaflet-control-layers {
   visibility: hidden;
+}
+
+body .leaflet-container a.leaflet-popup-close-button {
+  color: black;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .tile-toggle {
@@ -241,7 +250,7 @@ footer {
   z-index: 2;
 }
 
-.only-if-mobile{
+.only-if-mobile {
   display: none;
 }
 
@@ -250,7 +259,7 @@ footer {
     display: none !important;
   }
 
-  .only-if-mobile{
+  .only-if-mobile {
     display: inline-block;
   }
 

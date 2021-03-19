@@ -199,7 +199,7 @@ function sharePosition(event) {
     const radius = document.querySelector(" input[type=radio][name=radius]:checked").value;
     const url = `${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`;
     navigator.share({
-      title: `Je te partage ma zone de 10km autour d'ici. ${document.title}`,
+      title: `Hello, je te partage ma zone de ${radius/1000}km autour d'ici.`,
       text: document.querySelector("meta[name='description']").getAttribute("content"),
       url: url,
     });
