@@ -52,7 +52,8 @@ nav .container > div {
   display: inline-flex;
 }
 
-nav > div > div > .button, nav > div > div > button {
+nav > div > div > .button,
+nav > div > div > button {
   margin: 0 0.25rem;
 }
 
@@ -70,7 +71,7 @@ a {
   padding: 1rem 0.5rem;
   background: -webkit-linear-gradient(to right, rgba(255, 195, 113, 0.5), rgba(255, 95, 109, 0.5));
   background: linear-gradient(to right, rgba(255, 195, 113, 0.5), rgba(255, 95, 109, 0.5));
-  font-size: clamp(16px,calc(1rem + .25vw),20px);
+  font-size: clamp(16px, calc(1rem + 0.25vw), 20px);
   color: white;
   text-shadow: 0 1px 1px #444;
 }
@@ -230,24 +231,9 @@ body .leaflet-container a.leaflet-popup-close-button {
   display: none;
 }
 
-label.radio {
-  cursor: pointer;
-  margin: 0;
-}
-
-input[type="radio"]{
-  margin: 0 2px 0 0;
-}
-
-label.radio:first-child {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-div label.radio:last-child {
-  //border-left-width: 0 ;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+select.button{
+  appearance: auto;
+  text-align-last: center;
 }
 
 .gps-waiting {

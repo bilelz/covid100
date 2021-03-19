@@ -65,28 +65,31 @@ function toggleMap() {
 }
 
 function setRadius(d) {
-  if (document.querySelector(`input[type=radio][name=radius][value='${d}']`)) {
-    document.querySelector(`input[type=radio][name=radius][value='${d}']`).checked = true;
+  if (document.querySelector(`#radius option[value='${d}']`)) {
+    document.getElementById('radius').value = d;
+    localStorage.setItem("latestRadius", d);
 
     if (circle100) {
       circle100.setRadius(d);
       map.fitBounds(circle100.getBounds(), { padding: [10, 10] });
+      marker.bindPopup(getTooltipMsg())
     }
 
   }
 }
 
 function onMapClick(e) {
-  drawCircle(e, getTooltipMsg(), true);
+  drawCircle(e, getTooltipMsg(e.latlng), true);
 }
 
 map.on("click", onMapClick);
 
 function drawCircle(e, msg, fit) {
+  const radius = +document.getElementById('radius').value;
+
   if (circle100 !== undefined) {
     circle100.setLatLng(e.latlng);
   } else {
-    const radius = +document.querySelector("input[type=radio][name=radius]:checked").value;
     circle100 = L.circle(e.latlng, radius, {
       color: "red",
       fillColor: "white",
@@ -190,7 +193,7 @@ function sharePosition(event) {
   const latestLatLng = localStorage.getItem("latestLatLng");
   if (latestLatLng) {
     const latLng = JSON.parse(latestLatLng);
-    const radius = document.querySelector(" input[type=radio][name=radius]:checked").value;
+    const radius = document.getElementById('radius').value;
     const url = `${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`;
     navigator.share({
       title: `Hello, je te partage ma zone de ${radius/1000}km autour d'ici. @Covid100fr`,
@@ -202,12 +205,21 @@ function sharePosition(event) {
   }
 }
 
-function getTooltipMsg() {
+function getTooltipMsg(_latLng) {
   const latestLatLng = localStorage.getItem("latestLatLng");
   const shareIcon= document.getElementById('shareIcon').outerHTML;
-  const radius = document.querySelector(" input[type=radio][name=radius]:checked").value;
+  const radius = document.getElementById('radius').value;
 
-  if (latestLatLng) {
+  if(_latLng){
+    const url = `${document.location.protocol}//${document.location.host}?lat=${_latLng.lat}&lng=${_latLng.lng}&radius=${radius}`;
+    return `Cliquez n'importe où sur la carte 
+    <span data-share>
+      <br/>ou
+      <a href="${url}" onclick="sharePosition(event)" class="button invert small">
+       ${shareIcon} partager cette position</a>
+    </span>`;
+  }
+  else if (latestLatLng) {
     const latLng = JSON.parse(latestLatLng);
     const url = `${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`;
     return `Cliquez n'importe où sur la carte 
@@ -243,6 +255,9 @@ function init() {
 
   if (params.get('radius')) {
     setRadius(params.get('radius'));
+  }else if(localStorage.getItem("latestRadius")){
+    setRadius(localStorage.getItem("latestRadius"));
+    
   }
 
   if (params.get('lat') && params.get('lng')) {

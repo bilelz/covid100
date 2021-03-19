@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" href="img/logo.jpg" />
   <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32" />
   <link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16" />
-  <link rel="stylesheet" href="css/custom.css?refacto2" />
+  <link rel="stylesheet" href="css/custom.css?refacto20" />
   <meta name="theme-color" content="#eda988" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
     integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
@@ -52,10 +52,13 @@
         <a href="" class="brand">Covid💯<span class="hidden-if-mobile">.fr</span></a>
         <div>
           <div>
-            <label class="button radio"><input type="radio" name="radius" value="10000" onclick="setRadius(this.value)"
-                checked>10km</label><!--
-          --><label class="button radio"><input type="radio" name="radius" value="100000"
-                onclick="setRadius(this.value)">100km</label>
+            <select id="radius" name="radius" class="button" onchange="setRadius(this.value)">
+              <option value="1000">1km</option>
+              <option value="10000" selected>10km</option>
+              <option value="100000">100km</option>
+              <option value="1000000">1000km</option>
+              <option value="10000000">10 000km 👽</option>
+            </select>
           </div>
           <a href="https://twitter.com/Covid100fr" target="_blank" class="button">
             <?xml version="1.0" encoding="UTF-8" standalone="no"?>
@@ -125,7 +128,7 @@
   <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
     integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
     crossorigin=""></script>
-  <script src="js/main.js?refacto2"></script>
+  <script src="js/main.js?refacto20"></script>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-4041493-17"></script>
   <script>
