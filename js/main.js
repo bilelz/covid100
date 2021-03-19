@@ -193,10 +193,10 @@ function sharePosition(event) {
   const latestLatLng = localStorage.getItem("latestLatLng");
   if (latestLatLng) {
     const latLng = JSON.parse(latestLatLng);
-    const radius = document.getElementById('radius').value;
+    const radius = document.getElementById('radius').value/1000;
     const url = `${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`;
     navigator.share({
-      title: `Hello, je te partage ma zone de ${radius/1000}km autour d'ici. @Covid100fr`,
+      title: `Hello, je te partage ma zone de ${radius}km autour d'ici. @Covid100fr`,
       text: document.querySelector("meta[name='description']").getAttribute("content"),
       url: url,
     });
