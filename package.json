@@ -1,0 +1,29 @@
+{
+  "name": "covid100",
+  "version": "1.0.0",
+  "description": "map with a circle",
+  "main": "",
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.26.14"
+  },
+  "scripts": {
+    "dev": "browser-sync start -c bs-config.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bilelz/covid100.git"
+  },
+  "keywords": [
+    "covid",
+    "tracker",
+    "map"
+  ],
+  "author": "bilelz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bilelz/covid100/issues"
+  },
+  "homepage": "https://github.com/bilelz/covid100#readme"
+}

@@ -241,9 +241,17 @@ footer {
   z-index: 2;
 }
 
+.only-if-mobile{
+  display: none;
+}
+
 @media (max-width: 400px) {
   .hidden-if-mobile {
     display: none !important;
+  }
+
+  .only-if-mobile{
+    display: inline-block;
   }
 
   #rgpd {

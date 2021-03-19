@@ -7,23 +7,31 @@ if (navigator.share === undefined) {
 }
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/sw.js").then(
-    function () {},
-    function () {}
+    function () { },
+    function () { }
   );
 }
 
 const initLatlng = { lat: 46.911637, lng: 2.724609 },
   camping = '',
-    /*'<a href="https://www.awin1.com/cread.php?awinmid=13329&awinaffid=714551&clickref=&ued=" class="link" target="_blank" rel="noopener">' +
-    '<span class="emoji">🏕️</span> <span class="text">Locations de vacances près d\'ici</span> <span class="emoji">🏖️</span>' +
-    "</a>",*/
+  /*'<a href="https://www.awin1.com/cread.php?awinmid=13329&awinaffid=714551&clickref=&ued=" class="link" target="_blank" rel="noopener">' +
+  '<span class="emoji">🏕️</span> <span class="text">Locations de vacances près d\'ici</span> <span class="emoji">🏖️</span>' +
+  "</a>",*/
   button1_100km =
-    `Cliquez n'importe où sur la carte <br/>ou voir <button type="button" data-10000  class="invert small" onclick="setRadius(10000)">10km</button>
-    <button type="button" data-100000  class="invert small" onclick="setRadius(100000)">100km</button> autour d'ici.`;
+    `Cliquez n'importe où sur la carte <br/>ou
+    <button type="button" data-share onclick="sharePosition()" class="invert small">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="512px"
+              id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px"
+              xml:space="preserve">
+              <g>
+                <path d="M288,298.1v92.3L448,256L288,112v80C100.8,192,64,400,64,400C117,307,186.4,298.1,288,298.1z" />
+              </g>
+            </svg>
+    partager cette position</button>`;
 
 let circle100 = undefined,
   marker = undefined,
-  radius = 10 * 1000;
+  radius = +document.querySelector("input[type=radio][name=radius]:checked").value;
 
 // map = L.map("map").setView(initLatlng, 7);
 
@@ -74,13 +82,17 @@ function toggleMap() {
 }
 
 function setRadius(d) {
-  if (circle100) {
-    radius = d;
-    circle100.setRadius(radius);
-    map.fitBounds(circle100.getBounds(), { padding: [10, 10] });
-   } 
-document.querySelector("body").setAttribute("data-radius", radius);
-  
+  if (document.querySelector(`input[type=radio][name=radius][value='${d}']`)) {
+    document.querySelector("body").setAttribute("data-radius", radius);
+    document.querySelector(`input[type=radio][name=radius][value='${d}']`).checked = true;
+
+    if (circle100) {
+      radius = d;
+      circle100.setRadius(radius);
+      map.fitBounds(circle100.getBounds(), { padding: [10, 10] });
+    }
+    
+  }
 }
 
 function onMapClick(e) {
@@ -93,6 +105,7 @@ function drawCircle(e, msg, fit) {
   if (circle100 !== undefined) {
     circle100.setLatLng(e.latlng);
   } else {
+    const radius = +document.querySelector("input[type=radio][name=radius]:checked").value;
     circle100 = L.circle(e.latlng, radius, {
       color: "salmon",
       fillColor: "white",
@@ -126,10 +139,10 @@ function drawCircle(e, msg, fit) {
 
 function france() {
   const msg =
-    "Cliquez n'importe où sur la carte pour afficher une zone de <span data-10000>10</span><span data-100000>100</span> km <br/> " +
-    '<button type="button" onclick="gps()" class="invert" data-gps>' +
-    '<svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"> <path d="M0 0h24v24H0z" fill="none" /> <path      d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>' +
-    "&nbsp;Géo-localiser moi</button>";
+    `Cliquez n'importe où sur la carte <br/> 
+    <button type="button" onclick="gps()" class="invert" data-gps>
+    <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"> <path d="M0 0h24v24H0z" fill="none" /> <path      d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
+    &nbsp;Géo-localisez moi</button>`;
   setRadius(10 * 1000);
   drawCircle({ latlng: initLatlng }, msg, false);
   map.setView(initLatlng, 5);
@@ -193,6 +206,23 @@ function share() {
   });
 }
 
+function sharePosition() {
+  const latestLatLng = localStorage.getItem("latestLatLng");
+  if (latestLatLng) {
+    const latLng = JSON.parse(latestLatLng);
+    const radius = document.querySelector(" input[type=radio][name=radius]:checked").value;
+    const url = `${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`;
+    console.log(url);
+    navigator.share({
+      title: `Je te partage ma zone de 10km autour d'ici. ${document.title}`,
+      text: document.querySelector("meta[name='description']").getAttribute("content"),
+      url: url,
+    });
+  } else {
+    share();
+  }
+}
+
 function rgpd() {
   localStorage.setItem("rgpd", "ok");
   document.getElementById("rgpd").classList.add("hidden");
@@ -203,13 +233,29 @@ if (localStorage.getItem("rgpd")) {
 }
 
 // init circle position
-if (localStorage.getItem("gps")) {
-  gps();
-} else if (localStorage.getItem("latestLatLng")) {
-  drawCircle({ latlng: JSON.parse(localStorage.getItem("latestLatLng")) }, button1_100km + camping, true);
-} else {
-  france();
+function init() {
+  const search = document.location.search;
+  const params = new URLSearchParams(search);
+
+  if (params.get('radius')) {
+    setRadius(params.get('radius'));
+  }
+
+  if (params.get('lat') && params.get('lng')) {
+    drawCircle({ latlng: { lat: params.get('lat'), lng: params.get('lng') } }, button1_100km + camping, true);
+  }
+  if (localStorage.getItem("latestLatLng")) {
+    drawCircle({ latlng: JSON.parse(localStorage.getItem("latestLatLng")) }, button1_100km + camping, true);
+  } else if (localStorage.getItem("gps")) {
+    gps();
+
+  } else {
+    france();
+  }
+  window.history.replaceState({}, document.title, "/");
 }
+
+init();
 
 console.log(
   "%c  🏴‍☠️TIPIAK! 🏴‍☠️PIRATE! ",
