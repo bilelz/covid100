@@ -15,12 +15,10 @@ if ("serviceWorker" in navigator) {
 const initLatlng = { lat: 46.911637, lng: 2.724609 };
 
 let circle100 = undefined,
-  marker = undefined,
-  radius = +document.querySelector("input[type=radio][name=radius]:checked").value;
+  marker = undefined;
 
 // map = L.map("map").setView(initLatlng, 7);
 
-document.querySelector("body").setAttribute("data-radius", radius);
 
 // L.tileLayer("https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png", {
 //   maxZoom: 20,
@@ -68,12 +66,10 @@ function toggleMap() {
 
 function setRadius(d) {
   if (document.querySelector(`input[type=radio][name=radius][value='${d}']`)) {
-    document.querySelector("body").setAttribute("data-radius", radius);
     document.querySelector(`input[type=radio][name=radius][value='${d}']`).checked = true;
 
     if (circle100) {
-      radius = d;
-      circle100.setRadius(radius);
+      circle100.setRadius(d);
       map.fitBounds(circle100.getBounds(), { padding: [10, 10] });
     }
 
@@ -92,7 +88,7 @@ function drawCircle(e, msg, fit) {
   } else {
     const radius = +document.querySelector("input[type=radio][name=radius]:checked").value;
     circle100 = L.circle(e.latlng, radius, {
-      color: "salmon",
+      color: "red",
       fillColor: "white",
       fillOpacity: 0.5,
       weight: 3,
@@ -118,7 +114,6 @@ function drawCircle(e, msg, fit) {
   if (fit) {
     map.fitBounds(circle100.getBounds(), { padding: [10, 10] });
   }
-  document.querySelector("body").classList.remove("centered");
   localStorage.setItem("latestLatLng", JSON.stringify(e.latlng));
 }
 
@@ -131,7 +126,6 @@ function france() {
   setRadius(10 * 1000);
   drawCircle({ latlng: initLatlng }, msg, false);
   map.setView(initLatlng, 5);
-  document.querySelector("body").classList.add("centered");
 }
 
 function gps() {
@@ -210,30 +204,26 @@ function sharePosition(event) {
 
 function getTooltipMsg() {
   const latestLatLng = localStorage.getItem("latestLatLng");
+  const shareIcon= document.getElementById('shareIcon').outerHTML;
+  const radius = document.querySelector(" input[type=radio][name=radius]:checked").value;
+
   if (latestLatLng) {
     const latLng = JSON.parse(latestLatLng);
     const url = `${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`;
-    return `Cliquez n'importe où sur la carte <br/>ou
-    <a href="${url}" data-share onclick="sharePosition(event)" class="button invert small">
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="512px"
-              id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px"
-              xml:space="preserve">
-              <g>
-                <path d="M288,298.1v92.3L448,256L288,112v80C100.8,192,64,400,64,400C117,307,186.4,298.1,288,298.1z" />
-              </g>
-            </svg>
-    partager cette position</a>`;
+    return `Cliquez n'importe où sur la carte 
+    <span data-share>
+      <br/>ou
+      <a href="${url}" onclick="sharePosition(event)" class="button invert small">
+       ${shareIcon} partager cette position</a>
+    </span>`;
   } else {
-    return `Cliquez n'importe où sur la carte <br/>ou
-    <button type="button" data-share onclick="sharePosition(event)" class="invert small">
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="512px"
-              id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px"
-              xml:space="preserve">
-              <g>
-                <path d="M288,298.1v92.3L448,256L288,112v80C100.8,192,64,400,64,400C117,307,186.4,298.1,288,298.1z" />
-              </g>
-            </svg>
-    partager cette position</button>`;
+    return `Cliquez n'importe où sur la carte 
+    <span data-share>
+      <br/>ou
+      <button type="button" data-share onclick="sharePosition(event)" class="invert small">
+      ${shareIcon} partager cette position
+      </button>
+    </span>`;
   }
 }
 
