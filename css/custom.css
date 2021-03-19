@@ -104,7 +104,7 @@ button,
   align-items: center;
 }
 
-.invert {
+.invert, .button.invert {
   background-color: #ffc371;
   background: linear-gradient(to right, rgba(255, 195, 113, 0.5), rgba(255, 95, 109, 0.5));
   font-weight: 400;
@@ -112,7 +112,7 @@ button,
   border-color: #ffc371;
 }
 
-.invert svg {
+.invert svg, .button.invert svg {
   fill: black;
 }
 

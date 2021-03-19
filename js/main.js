@@ -12,22 +12,7 @@ if ("serviceWorker" in navigator) {
   );
 }
 
-const initLatlng = { lat: 46.911637, lng: 2.724609 },
-  camping = '',
-  /*'<a href="https://www.awin1.com/cread.php?awinmid=13329&awinaffid=714551&clickref=&ued=" class="link" target="_blank" rel="noopener">' +
-  '<span class="emoji">🏕️</span> <span class="text">Locations de vacances près d\'ici</span> <span class="emoji">🏖️</span>' +
-  "</a>",*/
-  button1_100km =
-    `Cliquez n'importe où sur la carte <br/>ou
-    <button type="button" data-share onclick="sharePosition()" class="invert small">
-    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="512px"
-              id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px"
-              xml:space="preserve">
-              <g>
-                <path d="M288,298.1v92.3L448,256L288,112v80C100.8,192,64,400,64,400C117,307,186.4,298.1,288,298.1z" />
-              </g>
-            </svg>
-    partager cette position</button>`;
+const initLatlng = { lat: 46.911637, lng: 2.724609 };
 
 let circle100 = undefined,
   marker = undefined,
@@ -91,12 +76,12 @@ function setRadius(d) {
       circle100.setRadius(radius);
       map.fitBounds(circle100.getBounds(), { padding: [10, 10] });
     }
-    
+
   }
 }
 
 function onMapClick(e) {
-  drawCircle(e, button1_100km + camping, true);
+  drawCircle(e, getTooltipMsg(), true);
 }
 
 map.on("click", onMapClick);
@@ -159,7 +144,7 @@ function gps() {
   navigator.geolocation.getCurrentPosition(
     function (position) {
       localStorage.setItem("gps", "ok");
-      drawCircle({ latlng: { lat: position.coords.latitude, lng: position.coords.longitude } }, "🏠" + button1_100km + camping, true);
+      drawCircle({ latlng: { lat: position.coords.latitude, lng: position.coords.longitude } }, "🏠 " + getTooltipMsg(), true);
       gpsLogHide();
     },
     function (error) {
@@ -206,13 +191,13 @@ function share() {
   });
 }
 
-function sharePosition() {
+function sharePosition(event) {
+  event.preventDefault();
   const latestLatLng = localStorage.getItem("latestLatLng");
   if (latestLatLng) {
     const latLng = JSON.parse(latestLatLng);
     const radius = document.querySelector(" input[type=radio][name=radius]:checked").value;
     const url = `${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`;
-    console.log(url);
     navigator.share({
       title: `Je te partage ma zone de 10km autour d'ici. ${document.title}`,
       text: document.querySelector("meta[name='description']").getAttribute("content"),
@@ -220,6 +205,35 @@ function sharePosition() {
     });
   } else {
     share();
+  }
+}
+
+function getTooltipMsg() {
+  const latestLatLng = localStorage.getItem("latestLatLng");
+  if (latestLatLng) {
+    const latLng = JSON.parse(latestLatLng);
+    const url = `${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`;
+    return `Cliquez n'importe où sur la carte <br/>ou
+    <a href="${url}" data-share onclick="sharePosition(event)" class="button invert small">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="512px"
+              id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px"
+              xml:space="preserve">
+              <g>
+                <path d="M288,298.1v92.3L448,256L288,112v80C100.8,192,64,400,64,400C117,307,186.4,298.1,288,298.1z" />
+              </g>
+            </svg>
+    partager cette position</a>`;
+  } else {
+    return `Cliquez n'importe où sur la carte <br/>ou
+    <button type="button" data-share onclick="sharePosition(event)" class="invert small">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="512px"
+              id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px"
+              xml:space="preserve">
+              <g>
+                <path d="M288,298.1v92.3L448,256L288,112v80C100.8,192,64,400,64,400C117,307,186.4,298.1,288,298.1z" />
+              </g>
+            </svg>
+    partager cette position</button>`;
   }
 }
 
@@ -242,10 +256,10 @@ function init() {
   }
 
   if (params.get('lat') && params.get('lng')) {
-    drawCircle({ latlng: { lat: params.get('lat'), lng: params.get('lng') } }, button1_100km + camping, true);
+    drawCircle({ latlng: { lat: params.get('lat'), lng: params.get('lng') } }, getTooltipMsg(), true);
   }
   if (localStorage.getItem("latestLatLng")) {
-    drawCircle({ latlng: JSON.parse(localStorage.getItem("latestLatLng")) }, button1_100km + camping, true);
+    drawCircle({ latlng: JSON.parse(localStorage.getItem("latestLatLng")) }, getTooltipMsg(), true);
   } else if (localStorage.getItem("gps")) {
     gps();
 
