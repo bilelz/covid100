@@ -208,7 +208,7 @@ function sharePosition(event) {
 function getTooltipMsg(_latLng) {
   const latestLatLng = localStorage.getItem("latestLatLng");
   const shareIcon= document.getElementById('shareIcon').outerHTML;
-  const radius = document.getElementById('radius').value;
+  const radius = document.getElementById('radius').value/1000;
 
   if(_latLng){
     const url = `${document.location.protocol}//${document.location.host}?lat=${_latLng.lat}&lng=${_latLng.lng}&radius=${radius}`;
@@ -254,7 +254,7 @@ function init() {
   const params = new URLSearchParams(search);
 
   if (params.get('radius')) {
-    setRadius(params.get('radius'));
+    setRadius(params.get('radius')*1000);
   }else if(localStorage.getItem("latestRadius")){
     setRadius(localStorage.getItem("latestRadius"));
     
