@@ -213,15 +213,15 @@ function getTooltipMsg(_latLng) {
   const shareTemplate = document.getElementById('share-tmpl').innerHTML;
 
   if(_latLng){
-    const url = encodeURIComponent(`${document.location.protocol}//${document.location.host}?lat=${_latLng.lat}&lng=${_latLng.lng}&radius=${radius}`);
+    const url = `${document.location.protocol}//${document.location.host}?lat=${_latLng.lat}&lng=${_latLng.lng}&radius=${radius}`;
     return eval("`" + shareTemplate + "`");
   }
   else if (latestLatLng) {
     const latLng = JSON.parse(latestLatLng);
-    const url = encodeURIComponent(`${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`);
+    const url = `${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`;
     return eval("`" + shareTemplate + "`");
   } else {
-    const url = encodeURIComponent(`${document.location.protocol}//${document.location.host}?radius=${radius}`);
+    const url = `${document.location.protocol}//${document.location.host}?radius=${radius}`;
     return eval("`" + shareTemplate + "`");
   }
 }
