@@ -196,7 +196,7 @@ function sharePosition(event) {
     const radius = document.getElementById('radius').value/1000;
     const url = `${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`;
     navigator.share({
-      title: `Hello, je te partage ma zone de ${radius}km autour d'ici. @Covid100fr`,
+      title: `Ma zone Covid de ${radius}km autour d'ici. @Covid100fr`,
       text: document.querySelector("meta[name='description']").getAttribute("content"),
       url: url,
     });
@@ -207,35 +207,22 @@ function sharePosition(event) {
 
 function getTooltipMsg(_latLng) {
   const latestLatLng = localStorage.getItem("latestLatLng");
-  const shareIcon= document.getElementById('shareIcon').outerHTML;
   const radius = document.getElementById('radius').value/1000;
+  const via = document.querySelector("meta[name='twitter:creator']").getAttribute('content');
+  const text = encodeURIComponent(`Ma zone covid de ${radius}km autour d'ici.`);
+  const shareTemplate = document.getElementById('share-tmpl').innerHTML;
 
   if(_latLng){
-    const url = `${document.location.protocol}//${document.location.host}?lat=${_latLng.lat}&lng=${_latLng.lng}&radius=${radius}`;
-    return `Cliquez n'importe où sur la carte 
-    <span data-share>
-      <br/>ou
-      <a href="${url}" onclick="sharePosition(event)" class="button invert small">
-       ${shareIcon} partager cette position</a>
-    </span>`;
+    const url = encodeURIComponent(`${document.location.protocol}//${document.location.host}?lat=${_latLng.lat}&lng=${_latLng.lng}&radius=${radius}`);
+    return eval("`" + shareTemplate + "`");
   }
   else if (latestLatLng) {
     const latLng = JSON.parse(latestLatLng);
-    const url = `${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`;
-    return `Cliquez n'importe où sur la carte 
-    <span data-share>
-      <br/>ou
-      <a href="${url}" onclick="sharePosition(event)" class="button invert small">
-       ${shareIcon} partager cette position</a>
-    </span>`;
+    const url = encodeURIComponent(`${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`);
+    return eval("`" + shareTemplate + "`");
   } else {
-    return `Cliquez n'importe où sur la carte 
-    <span data-share>
-      <br/>ou
-      <button type="button" data-share onclick="sharePosition(event)" class="invert small">
-      ${shareIcon} partager cette position
-      </button>
-    </span>`;
+    const url = encodeURIComponent(`${document.location.protocol}//${document.location.host}?radius=${radius}`);
+    return eval("`" + shareTemplate + "`");
   }
 }
 
