@@ -236,13 +236,14 @@ select.button {
   appearance: none;
   text-align-last: center;
   position: relative;
-  padding-right: 32px;
+  padding: 0.5rem 1.5rem 0.5rem 0.5rem;
   background-color: #ff5f6d;
   background-image: linear-gradient(to right, #ffc371, #ff5f6d),
-    url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+  url("data:image/svg+xml;utf8,<svg fill='white' style='transform:rotate(90deg);filter: drop-shadow(1px 0px 1px rgb(0 0 0 / 50%));' viewBox='0 0 24 24' x='0' y='0' xmlns='http://www.w3.org/2000/svg'><g><path d='M15.46 10.574L10.274 5.39a1.337 1.337 0 00-1.885 0 1.338 1.338 0 000 1.885l4.242 4.243L8.39 15.76a1.339 1.339 0 000 1.886 1.339 1.339 0 001.886 0l5.185-5.186a1.337 1.337 0 000-1.886'/></g></svg>");
   background-position: left center, right center;
-  background-size: calc(100% - 30px), 36px;
+  background-size: calc(100% - 2rem) 100%, 1.5rem 100%;
   background-repeat: no-repeat;
+  text-shadow: 0 1px 1px rgb(0 0 0 / 50%);
 }
 
 select.button option{
