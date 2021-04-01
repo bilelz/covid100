@@ -237,13 +237,11 @@ select.button {
   text-align-last: center;
   position: relative;
   padding: 0.5rem 1.5rem 0.5rem 0.5rem;
-  background-color: #ff5f6d;
-  background-image: linear-gradient(to right, #ffc371, #ff5f6d),
-  url("data:image/svg+xml;utf8,<svg fill='white' style='transform:rotate(90deg);filter: drop-shadow(1px 0px 1px rgb(0 0 0 / 50%));' viewBox='0 0 24 24' x='0' y='0' xmlns='http://www.w3.org/2000/svg'><g><path d='M15.46 10.574L10.274 5.39a1.337 1.337 0 00-1.885 0 1.338 1.338 0 000 1.885l4.242 4.243L8.39 15.76a1.339 1.339 0 000 1.886 1.339 1.339 0 001.886 0l5.185-5.186a1.337 1.337 0 000-1.886'/></g></svg>");
-  background-position: left center, right center;
-  background-size: calc(100% - 2rem) 100%, 1.5rem 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' style='transform:rotate(90deg);filter: drop-shadow(1px 0px 1px rgb(0 0 0 / 50%));' viewBox='0 0 24 24' x='0' y='0' xmlns='http://www.w3.org/2000/svg'><g><path d='M15.46 10.574L10.274 5.39a1.337 1.337 0 00-1.885 0 1.338 1.338 0 000 1.885l4.242 4.243L8.39 15.76a1.339 1.339 0 000 1.886 1.339 1.339 0 001.886 0l5.185-5.186a1.337 1.337 0 000-1.886'/></g></svg>");
+  background-position: right center;
+  background-size: 1.75rem 100%;
   background-repeat: no-repeat;
-  text-shadow: 0 1px 1px rgb(0 0 0 / 50%);
 }
 
 select.button option{
@@ -267,11 +265,11 @@ select.button option{
   align-items: center;
   margin: 0 auto;
   padding: 0.5em;
-  width: 370px;
-  left: calc(50% - 370px / 2);
+  width: 225px;
   position: fixed;
-  bottom: 0;
-  z-index: 2;
+  bottom: 4rem;
+  right: 1rem;
+  z-index: 5;
 }
 
 .only-if-mobile {
@@ -297,10 +295,5 @@ svg.facebook path:last-child{
 
   .only-if-mobile {
     display: inline-block;
-  }
-
-  #rgpd {
-    width: 225px;
-    left: calc(50% - 225px / 2);
   }
 }
