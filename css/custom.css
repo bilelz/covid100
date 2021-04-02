@@ -18,6 +18,10 @@ html {
   scroll-behavior: smooth;
 }
 
+div{
+  position: relative;
+}
+
 .container {
   max-width: 900px;
   margin: 0 auto;
@@ -139,13 +143,7 @@ button svg,
   vertical-align: top;
 }
 
-footer {
-  position: absolute;
-  bottom: 0;
-  padding: 0.5rem 0;
-  z-index: 2;
-  width: 100%;
-}
+
 
 #aaa {
   position: absolute;
@@ -189,16 +187,26 @@ body .leaflet-container a.leaflet-popup-close-button {
   height: 20px;
 }
 
-.tile-toggle {
+footer {
   position: absolute;
-  bottom: 50px;
-  left: 5px;
-  z-index: 5;
+  bottom: 0;
+  padding: 0.5rem 0;
+  z-index: 2;
+  display: flex;
+  flex-flow: column;
+  align-items: flex-start;
+}
+
+footer button{
+  margin-top: .5rem;
+}
+
+.tile-toggle {
   border-radius: 8px;
   padding: 0;
+  overflow: hidden;
 }
 .tile-toggle img {
-  border-radius: 8;
   width: 80px;
   height: 80px;
 }
@@ -230,6 +238,13 @@ body .leaflet-container a.leaflet-popup-close-button {
 [data-map="0"] [data-map="0"],
 [data-map="1"] [data-map="1"] {
   display: none;
+}
+
+#radius{
+  position: absolute;
+  top: 3.75rem;
+  left: calc(50% - 150px / 2);
+  z-index: 2;
 }
 
 select.button {
