@@ -291,6 +291,14 @@ select.button option{
   display: none;
 }
 
+.screenshot [no-screenshot='true']{
+  visibility: hidden;
+}
+
+.screenshot .brand{
+  font-size: 2.5rem;
+}
+
 .social{
   padding: 2px;
 }

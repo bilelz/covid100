@@ -202,10 +202,13 @@ async function screenshot() {
     marker.closePopup();
     await sleep(300);
   }
+
+  document.body.classList.add('screenshot')
   
-  const mapEl = document.getElementById('map');
+  const mapEl = document.body;
   const blob = await domtoimage.toBlob(mapEl, { quality: 0.75, width: mapEl.clientWidth, height: mapEl.clientHeight });
 
+  document.body.classList.remove('screenshot');
   //  document.getElementById('preview').src = dataUrl;
   const file = new File([blob], 'covid100.fr.jpg', { type: 'image/jpeg' });
   return file;
