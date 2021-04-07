@@ -232,7 +232,7 @@ async function sharePosition(event) {
       navigator.share({
         files: [file],
         title: `🖼️ Ma zone Covid de ${radius}km autour d'ici. @Covid100fr`,
-        text: document.querySelector("meta[name='description']").getAttribute("content"),
+        //text: document.querySelector("meta[name='description']").getAttribute("content"),
         url: url
       })
         .then(() => console.log('Share with file was successful.'))
@@ -241,7 +241,7 @@ async function sharePosition(event) {
       console.log(`Your system doesn't support sharing files.`);
       navigator.share({
         title: `Ma zone Covid de ${radius}km autour d'ici. @Covid100fr`,
-        text: document.querySelector("meta[name='description']").getAttribute("content"),
+        //text: document.querySelector("meta[name='description']").getAttribute("content"),
         url: url,
       });
     }
