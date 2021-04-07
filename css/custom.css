@@ -232,7 +232,8 @@ footer button{
 
 /* features de ouf */
 .no-gps [data-gps],
-.no-share [data-share] {
+.no-share [data-share],
+.no-share-file [data-share-file] {
   display: none;
 }
 
@@ -323,10 +324,13 @@ select.button option{
   transform: translateY(2rem);
 }
 
-fra
-
 .social{
   padding: 2px;
+}
+
+#socialOthers{
+  margin-top: .5rem;
+  font-size: 1em;
 }
 
 svg.facebook, .invert svg.facebook{

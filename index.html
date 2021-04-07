@@ -65,6 +65,7 @@
           </a>
 
           <button type="button" data-share onclick="sharePosition(event)" aria-label="Partager la page">
+            <span data-share-file title="Avec un screenshot :)">🖼️ </span>
             <svg id="shareIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
               height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512"
               width="512px" xml:space="preserve">
@@ -176,15 +177,38 @@
           d="M1036.898 176.091C923.562 62.677 772.859.185 612.297.114 281.43.114 12.172 269.286 12.039 600.137 12 705.896 39.633 809.13 92.156 900.13L7 1211.067l318.203-83.438c87.672 47.812 186.383 73.008 286.836 73.047h.255.003c330.812 0 600.109-269.219 600.25-600.055.055-160.343-62.328-311.108-175.649-424.53zm-424.601 923.242h-.195c-89.539-.047-177.344-24.086-253.93-69.531l-18.227-10.805-188.828 49.508 50.414-184.039-11.875-18.867c-49.945-79.414-76.312-171.188-76.273-265.422.109-274.992 223.906-498.711 499.102-498.711 133.266.055 258.516 52 352.719 146.266 94.195 94.266 146.031 219.578 145.992 352.852-.118 274.999-223.923 498.749-498.899 498.749z" />
       </svg>
     </a>
-    <a href="${url}" onclick="sharePosition(event)" data-share class="button invert small social"
+    <a href="mailto:?subject=${text}&body=${encodeURIComponent(' '+url)}" target="_blank"
+      class="button invert small social" title="eMail">
+      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+        <g>
+          <g>
+            <path d="M494.545,68.364H17.455C7.814,68.364,0,76.177,0,85.818v340.364c0,9.641,7.814,17.455,17.455,17.455h477.091
+			c9.641,0,17.455-7.814,17.455-17.455V85.818C512,76.177,504.186,68.364,494.545,68.364z M477.091,408.727H34.909V103.273h442.182
+			V408.727z" />
+          </g>
+        </g>
+        <g>
+          <g>
+            <path d="M483.98,71.93L256,245.411L28.026,71.93L6.883,99.706l238.545,181.533c3.124,2.374,6.848,3.561,10.572,3.561
+			s7.447-1.187,10.572-3.561L505.117,99.706L483.98,71.93z" />
+          </g>
+        </g>
+
+      </svg>
+
+    </a>
+    <br/>
+    <a href="${url}" onclick="sharePosition(event)" data-share class="button invert small social" id="socialOthers"
       title="Autres applications">
+      <span data-share-file>&nbsp;🖼️ Avec un <i>screenshot</i></span>
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="512px" id="Layer_1"
         style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px"
         xml:space="preserve">
         <g>
           <path d="M288,298.1v92.3L448,256L288,112v80C100.8,192,64,400,64,400C117,307,186.4,298.1,288,298.1z" />
         </g>
-      </svg>...</a>
+      </svg>&nbsp;</a>
   </template>
 
   <link rel="stylesheet" type="text/css" href="css/leaflet.min.css" />
