@@ -5,6 +5,10 @@ if ("geolocation" in navigator === false) {
 if (navigator.share === undefined) {
   document.querySelector("body").classList.add("no-share");
 }
+if (!navigator.canShare || !navigator.canShare({ files: [new File([''], '')] })) {
+  document.querySelector("body").classList.add("no-share-file");
+}
+
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/sw.js").then(
     function () { },
@@ -180,16 +184,6 @@ function gpsLogHide() {
   document.querySelector("body").classList.remove("gps-waiting");
 }
 
-function share() {
-
-  navigator.share({
-    title: document.title,
-    text: document.querySelector("meta[name='description']").getAttribute("content"),
-    url: "https://covid100.fr",
-  });
-}
-
-
 function sleep(delay) {
   return new Promise(resolve => {
     setTimeout(resolve, delay);
@@ -197,36 +191,40 @@ function sleep(delay) {
 }
 
 async function screenshot() {
-  // Generate image
+  
+  document.body.classList.add('screenshot')
+  const markerWasOpen = marker.isPopupOpen();
   if (marker.isPopupOpen()) {
     marker.closePopup();
     await sleep(300);
   }
 
-  document.body.classList.add('screenshot')
   
-  const mapEl = document.body;
-  const blob = await domtoimage.toBlob(mapEl, { quality: 0.75, width: mapEl.clientWidth, height: mapEl.clientHeight });
+  // Generate image
+  const blob = await domtoimage.toBlob(document.body, { width: document.body.clientWidth, height: document.body.clientHeight });
 
   document.body.classList.remove('screenshot');
-  //  document.getElementById('preview').src = dataUrl;
+
+  if(markerWasOpen){
+    marker.togglePopup();
+  }
+
   const file = new File([blob], 'covid100.fr.jpg', { type: 'image/jpeg' });
   return file;
 
 }
 
 async function sharePosition(event) {
-  console.log('share')
   event.preventDefault();
-  // await new Promise(resolve => tileLayer.on("load", () => resolve()));
 
   const latestLatLng = localStorage.getItem("latestLatLng");
   if (latestLatLng) {
     const latLng = JSON.parse(latestLatLng);
     const radius = document.getElementById('radius').value / 1000;
     const url = `${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`;
-    const file = await screenshot();
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+
+    if (navigator.canShare && navigator.canShare({ files: [new File([''], '')] })) {
+      const file = await screenshot();
       navigator.share({
         files: [file],
         title: `🖼️ Ma zone Covid de ${radius}km autour d'ici. @Covid100fr`,
@@ -243,9 +241,12 @@ async function sharePosition(event) {
         url: url,
       });
     }
-
   } else {
-    share();
+    navigator.share({
+      title: document.title,
+      text: document.querySelector("meta[name='description']").getAttribute("content"),
+      url: "https://covid100.fr",
+    });
   }
 }
 

@@ -78,6 +78,7 @@ a {
   font-size: clamp(16px, calc(1rem + 0.25vw), 20px);
   color: white;
   text-shadow: 0 1px 1px #444;
+  transition: 0.3s ease-in-out;
 }
 
 nav img {
@@ -245,6 +246,7 @@ footer button{
   top: 3.75rem;
   left: calc(50% - 150px / 2);
   z-index: 2;
+  transition: 0.3s ease-in-out;
 }
 
 select.button {
@@ -291,6 +293,23 @@ select.button option{
   display: none;
 }
 
+.screenshot{
+  animation: flash .3s ease-in-out .4s 1;
+}
+
+@keyframes flash {
+  from {
+    filter: brightness(0.5);
+  }
+
+  50%{
+    filter: brightness(1.5);
+  }
+
+  to {
+    filter: brightness(1);
+  }
+}
 .screenshot [no-screenshot='true']{
   visibility: hidden;
 }
@@ -298,6 +317,13 @@ select.button option{
 .screenshot .brand{
   font-size: 2.5rem;
 }
+
+.screenshot #radius{
+  background-image: none;
+  transform: translateY(2rem);
+}
+
+fra
 
 .social{
   padding: 2px;
