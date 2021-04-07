@@ -69,7 +69,11 @@ function toggleMap() {
 }
 
 function setRadius(d) {
-  if (document.querySelector(`#radius option[value='${d}']`)) {
+  const optionSelected = document.querySelector(`#radius option[selected]`);
+  const optionTarget = document.querySelector(`#radius option[value='${d}']`);
+  if (optionTarget) {
+    optionSelected.removeAttribute("selected"); // useful for the screenshot
+    optionTarget.setAttribute("selected", true); // useful for the screenshot
     document.getElementById('radius').value = d;
     localStorage.setItem("latestRadius", d);
 
@@ -191,7 +195,7 @@ function sleep(delay) {
 }
 
 async function screenshot() {
-  
+
   document.body.classList.add('screenshot')
   const markerWasOpen = marker.isPopupOpen();
   if (marker.isPopupOpen()) {
@@ -199,13 +203,13 @@ async function screenshot() {
     await sleep(300);
   }
 
-  
+
   // Generate image
   const blob = await domtoimage.toBlob(document.body, { width: document.body.clientWidth, height: document.body.clientHeight });
 
   document.body.classList.remove('screenshot');
 
-  if(markerWasOpen){
+  if (markerWasOpen) {
     marker.togglePopup();
   }
 
