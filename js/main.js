@@ -200,14 +200,14 @@ async function screenshot() {
   // Generate image
   if (marker.isPopupOpen()) {
     marker.closePopup();
-    await sleep(500);
+    await sleep(300);
   }
   
   const mapEl = document.getElementById('map');
   const blob = await domtoimage.toBlob(mapEl, { quality: 0.75, width: mapEl.clientWidth, height: mapEl.clientHeight });
 
   //  document.getElementById('preview').src = dataUrl;
-  const file = new File([blob], 'toto.jpg', { type: 'image/jpeg' });
+  const file = new File([blob], 'covid100.fr.jpg', { type: 'image/jpeg' });
   return file;
 
 }
@@ -228,6 +228,7 @@ async function sharePosition(event) {
         files: [file],
         title: `🖼️ Ma zone Covid de ${radius}km autour d'ici. @Covid100fr`,
         text: document.querySelector("meta[name='description']").getAttribute("content"),
+        url: url
       })
         .then(() => console.log('Share with file was successful.'))
         .catch((error) => console.log('Sharing with file failed', error));
