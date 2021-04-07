@@ -181,6 +181,7 @@ function gpsLogHide() {
 }
 
 function share() {
+
   navigator.share({
     title: document.title,
     text: document.querySelector("meta[name='description']").getAttribute("content"),
@@ -188,18 +189,57 @@ function share() {
   });
 }
 
-function sharePosition(event) {
+
+function sleep(delay) {
+  return new Promise(resolve => {
+    setTimeout(resolve, delay);
+  });
+}
+
+async function screenshot() {
+  // Generate image
+  if (marker.isPopupOpen()) {
+    marker.closePopup();
+    await sleep(500);
+  }
+  
+  const mapEl = document.getElementById('map');
+  const blob = await domtoimage.toBlob(mapEl, { quality: 0.75, width: mapEl.clientWidth, height: mapEl.clientHeight });
+
+  //  document.getElementById('preview').src = dataUrl;
+  const file = new File([blob], 'toto.jpg', { type: 'image/jpeg' });
+  return file;
+
+}
+
+async function sharePosition(event) {
+  console.log('share')
   event.preventDefault();
+  // await new Promise(resolve => tileLayer.on("load", () => resolve()));
+
   const latestLatLng = localStorage.getItem("latestLatLng");
   if (latestLatLng) {
     const latLng = JSON.parse(latestLatLng);
-    const radius = document.getElementById('radius').value/1000;
+    const radius = document.getElementById('radius').value / 1000;
     const url = `${document.location.protocol}//${document.location.host}?lat=${latLng.lat}&lng=${latLng.lng}&radius=${radius}`;
-    navigator.share({
-      title: `Ma zone Covid de ${radius}km autour d'ici. @Covid100fr`,
-      text: document.querySelector("meta[name='description']").getAttribute("content"),
-      url: url,
-    });
+    const file = await screenshot();
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      navigator.share({
+        files: [file],
+        title: `🖼️ Ma zone Covid de ${radius}km autour d'ici. @Covid100fr`,
+        text: document.querySelector("meta[name='description']").getAttribute("content"),
+      })
+        .then(() => console.log('Share with file was successful.'))
+        .catch((error) => console.log('Sharing with file failed', error));
+    } else {
+      console.log(`Your system doesn't support sharing files.`);
+      navigator.share({
+        title: `Ma zone Covid de ${radius}km autour d'ici. @Covid100fr`,
+        text: document.querySelector("meta[name='description']").getAttribute("content"),
+        url: url,
+      });
+    }
+
   } else {
     share();
   }
@@ -207,12 +247,12 @@ function sharePosition(event) {
 
 function getTooltipMsg(_latLng) {
   const latestLatLng = localStorage.getItem("latestLatLng");
-  const radius = document.getElementById('radius').value/1000;
+  const radius = document.getElementById('radius').value / 1000;
   const via = document.querySelector("meta[name='twitter:creator']").getAttribute('content');
   const text = encodeURIComponent(`Ma zone covid de ${radius}km autour d'ici.`);
   const shareTemplate = document.getElementById('share-tmpl').innerHTML;
 
-  if(_latLng){
+  if (_latLng) {
     const url = `${document.location.protocol}//${document.location.host}?lat=${_latLng.lat}&lng=${_latLng.lng}&radius=${radius}`;
     return eval("`" + shareTemplate + "`");
   }
@@ -241,10 +281,10 @@ function init() {
   const params = new URLSearchParams(search);
 
   if (params.get('radius')) {
-    setRadius(params.get('radius')*1000);
-  }else if(localStorage.getItem("latestRadius")){
+    setRadius(params.get('radius') * 1000);
+  } else if (localStorage.getItem("latestRadius")) {
     setRadius(localStorage.getItem("latestRadius"));
-    
+
   }
 
   if (params.get('lat') && params.get('lng')) {
