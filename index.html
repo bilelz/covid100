@@ -64,6 +64,10 @@
             <!-- <span>@Covid100fr</span> -->
           </a>
 
+          <button type="button" onclick="showScreenshot(event)" title="Prendre un screenshot">
+            📸 <span class="hidden-if-mobile">&nbsp;Screenshot</span>
+          </button>
+
           <button type="button" data-share onclick="sharePosition(event)" aria-label="Partager la page">
             <span data-share-file title="Avec un screenshot :)">🖼️ </span>
             <svg id="shareIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -216,7 +220,7 @@
   <script src="js/vendor/leaflet.js"></script>
   <script src='js/vendor/dom-to-image.min.js'></script>
 
-  <script src="js/main.js?noblabla"></script>
+  <script src="js/main.js?Screenshot"></script>
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-4041493-17"></script>
   <script>

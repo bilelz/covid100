@@ -203,7 +203,6 @@ async function screenshot() {
     await sleep(300);
   }
 
-
   // Generate image
   const blob = await domtoimage.toBlob(document.body, { width: document.body.clientWidth, height: document.body.clientHeight });
 
@@ -213,9 +212,14 @@ async function screenshot() {
     marker.togglePopup();
   }
 
-  const file = new File([blob], 'covid100.fr.jpg', { type: 'image/jpeg' });
+  const file = new File([blob], 'covid100.fr.png', { type: 'image/png' });
   return file;
+}
 
+async function showScreenshot(event) {
+  const file =  await screenshot();
+  var fileURL = URL.createObjectURL(file);
+  window.open(fileURL);
 }
 
 async function sharePosition(event) {
