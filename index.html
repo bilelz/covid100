@@ -35,7 +35,6 @@
   <meta property="og:image" content="https://covid100.fr/img/screenshot.jpg" />
   <meta property="og:image:width" content="600" />
   <meta property="og:image:height" content="600" />
-  <link rel="preload" as="image" href="https://a.tile.openstreetmap.fr/osmfr/0/0/0.png">
 </head>
 
 <body>
@@ -46,11 +45,11 @@
       </p>
     <![endif]-->
   <div>
-    <nav>
+    <nav no-screenshot="true">
       <div class="container">
         <a href="" class="brand">Covid💯.fr</a>
 
-        <div no-screenshot="true">
+        <div>
           <a href="https://twitter.com/Covid100fr" target="_blank" class="button" title="Bilelz production :)">
             <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
               xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
@@ -64,12 +63,12 @@
             <!-- <span>@Covid100fr</span> -->
           </a>
 
-          <button type="button" onclick="showScreenshot(event)" title="Prendre un screenshot">
+          <button type="button" onclick="downloadScreenshot(event)" title="Prendre un screenshot">
             📸 <span class="hidden-if-mobile">&nbsp;Screenshot</span>
           </button>
 
           <button type="button" data-share onclick="sharePosition(event)" aria-label="Partager la page">
-            <span data-share-file title="Avec un screenshot :)">🖼️ </span>
+            <span data-share-file title="Avec un screenshot :)">📸 </span>
             <svg id="shareIcon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
               height="512px" id="Layer_1" style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512"
               width="512px" xml:space="preserve">
@@ -84,16 +83,24 @@
     </nav>
     <div id="gpsStatus" class="hidden container"></div>
 
-    <select id="radius" name="radius" class="button" onchange="setRadius(this.value)">
-      <option value="1000">📍 1km</option>
-      <option value="10000" selected>📍 10km</option>
-      <option value="30000">📍 30km</option>
-      <option value="100000">⛰️ 100km</option>
-      <option value="1000000">🌍 1000km</option>
-      <option value="10000000">👽 10 000km</option>
-    </select>
+    <div id="screenshot-area">
+      <div class="screenshot-header"><span class="brand">Covid💯.fr</span></div>
 
-    <div id="map"></div>
+
+      <select id="radius" name="radius" class="button" onchange="setRadius(this.value)">
+        <option value="1000">📍 1km</option>
+        <option value="10000" selected>📍 10km</option>
+        <option value="30000">📍 30km</option>
+        <option value="100000">⛰️ 100km</option>
+        <option value="1000000">🌍 1000km</option>
+        <option value="10000000">👽 10 000km</option>
+      </select>
+
+      <div id="map">
+
+      </div>
+
+    </div>
 
 
     <div class="container" no-screenshot="true">
@@ -205,7 +212,7 @@
     <br />
     <a href="${url}" onclick="sharePosition(event)" data-share class="button invert small social" id="socialOthers"
       title="Autres applications">
-      <span data-share-file>&nbsp;🖼️ Avec un <i>screenshot</i></span>
+      <span data-share-file>&nbsp;📸 Avec un <i>screenshot</i></span>
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="512px" id="Layer_1"
         style="enable-background:new 0 0 512 512;" version="1.1" viewBox="0 0 512 512" width="512px"
         xml:space="preserve">

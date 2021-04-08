@@ -18,7 +18,7 @@ html {
   scroll-behavior: smooth;
 }
 
-div{
+div {
   position: relative;
 }
 
@@ -78,7 +78,6 @@ a {
   font-size: clamp(16px, calc(1rem + 0.25vw), 20px);
   color: white;
   text-shadow: 0 1px 1px #444;
-  transition: 0.3s ease-in-out;
 }
 
 nav img {
@@ -144,8 +143,6 @@ button svg,
   vertical-align: top;
 }
 
-
-
 #aaa {
   position: absolute;
   bottom: 0;
@@ -198,8 +195,8 @@ footer {
   align-items: flex-start;
 }
 
-footer button{
-  margin-top: .5rem;
+footer button {
+  margin-top: 0.5rem;
 }
 
 .tile-toggle {
@@ -242,7 +239,7 @@ footer button{
   display: none;
 }
 
-#radius{
+#radius {
   position: absolute;
   top: 3.75rem;
   left: calc(50% - 150px / 2);
@@ -262,9 +259,9 @@ select.button {
   background-repeat: no-repeat;
 }
 
-select.button option{
+select.button option {
   background-color: white;
-  color : black;
+  color: black;
 }
 
 .gps-waiting {
@@ -294,16 +291,54 @@ select.button option{
   display: none;
 }
 
-.screenshot{
-  animation: flash .3s ease-in-out .4s 1;
+.screenshot {
+  animation: flash 0.3s ease-in-out 0.4s 1;
 }
+
+.screenshot [no-screenshot="true"] {
+  visibility: hidden;
+}
+
+.screenshot #radius {
+  background-image: none;
+}
+
+.screenshot .screenshot-header{
+  visibility: visible;
+}
+
+.screenshot .screenshot-header .brand{
+  font-size: 2rem;
+}
+
+.screenshot-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 401;
+  width: 100%;
+  text-align: center;
+  visibility: hidden;
+}
+
+.screenshot-header .brand {
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  font-size: 1rem;
+  padding: 0.25rem 0;
+  display: inline-block;
+  width: 100%;
+  transition: 0.3s ease-in-out;
+}
+
+
 
 @keyframes flash {
   from {
     filter: brightness(0.5);
   }
 
-  50%{
+  50% {
     filter: brightness(1.5);
   }
 
@@ -311,33 +346,23 @@ select.button option{
     filter: brightness(1);
   }
 }
-.screenshot [no-screenshot='true']{
-  visibility: hidden;
-}
 
-.screenshot .brand{
-  font-size: 2.5rem;
-}
 
-.screenshot #radius{
-  background-image: none;
-  transform: translateY(2rem);
-}
-
-.social{
+.social {
   padding: 2px;
 }
 
-#socialOthers{
-  margin-top: .5rem;
+#socialOthers {
+  margin-top: 0.5rem;
   font-size: 1em;
 }
 
-svg.facebook, .invert svg.facebook{
+svg.facebook,
+.invert svg.facebook {
   fill: url(#jsc_s_1e);
 }
 
-svg.facebook path:last-child{
+svg.facebook path:last-child {
   fill: white;
 }
 

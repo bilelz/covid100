@@ -195,31 +195,51 @@ function sleep(delay) {
 }
 
 async function screenshot() {
+  return new Promise(async (resolve, reject) => {
+    document.body.classList.add('screenshot')
+    const markerWasOpen = marker.isPopupOpen();
+    if (marker.isPopupOpen()) {
+      marker.closePopup();
+      await sleep(300);
+    }
 
-  document.body.classList.add('screenshot')
-  const markerWasOpen = marker.isPopupOpen();
-  if (marker.isPopupOpen()) {
-    marker.closePopup();
-    await sleep(300);
-  }
+    // Generate image
+    const el = document.querySelector('#screenshot-area');
+    domtoimage.toJpeg(el, { width: el.clientWidth, height: el.clientHeight, quality: 0.75 }).then(
+      async function (dataUrl) {
+        const blob = await (await fetch(dataUrl)).blob();
+        const file = new File([blob], 'covid100.fr.jpeg', { type: 'image/jpeg' });
+        resolve(file)
+      }
+    ).catch(function (error) {
+      console.error('domtoimage.toJpeg', error);
+      reject(error);
+    }).finally(function () {
+      document.body.classList.remove('screenshot');
 
-  // Generate image
-  const blob = await domtoimage.toBlob(document.body, { width: document.body.clientWidth, height: document.body.clientHeight });
-
-  document.body.classList.remove('screenshot');
-
-  if (markerWasOpen) {
-    marker.togglePopup();
-  }
-
-  const file = new File([blob], 'covid100.fr.png', { type: 'image/png' });
-  return file;
+      if (markerWasOpen) {
+        marker.togglePopup();
+      }
+    })
+  });
 }
 
-async function showScreenshot(event) {
-  const file =  await screenshot();
+async function downloadScreenshot(event) {
+  const file = await screenshot();
   var fileURL = URL.createObjectURL(file);
-  window.open(fileURL);
+  // window.open(fileURL);
+  var link = document.createElement('a');
+  const radius = document.getElementById('radius').value / 1000;
+
+  if (localStorage.getItem("latestLatLng")) {
+    const latLng = JSON.parse(localStorage.getItem("latestLatLng"));
+    link.download = `covid100.fr_${latLng.lat}_${latLng.lng}_${radius}.jpeg`;
+  } else {
+    link.download = `covid100.fr_${radius}.jpeg`;
+  }
+
+  link.href = fileURL;
+  link.click();
 }
 
 async function sharePosition(event) {
