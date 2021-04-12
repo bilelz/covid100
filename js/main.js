@@ -12,11 +12,11 @@ if (!navigator.canShare || !navigator.canShare({ files: [new File([''], '')] }))
 const webP = new Image();
 webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
 webP.onload = webP.onerror = () => {
-  if(webP.height !== 2){
+  if (webP.height !== 2) {
     document.querySelector("body").classList.add("no-webp");
   }
 };
- 
+
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/sw.js").then(
@@ -220,7 +220,7 @@ async function screenshot() {
         img.src = URL.createObjectURL(blob);
 
         // convert to .webp or .jpeg image
-        img.onload = async function (e2) {
+        img.onload = async function () {
           const canvas = document.createElement('canvas');
           canvas.width = img.width;
           canvas.height = img.height;
@@ -228,27 +228,25 @@ async function screenshot() {
           ctx.drawImage(img, 0, 0);
 
           const imageType = document.querySelector("body").classList.contains("no-webp") ? 'image/jpeg' : 'image/webp';
+          const imageExtension = imageType === 'image/jpeg' ? 'jpeg' : 'webp';
 
           canvas.toBlob(blob => {
-            const file = new File([blob], 'covid100.fr_screenshot', { type: imageType });
-            resolve(file)
+            const file = new File([blob], `covid100.fr_screenshot.${imageExtension}`, { type: imageType });
+            resolve(file);
           }, imageType);
         };
 
       }
     ).catch(function (error) {
-      console.error('domtoimage.toJpeg', error);
+      console.error('domtoimage', error);
       reject(error);
     }).finally(function () {
-
       setTimeout(() => {
         document.body.classList.remove('screenshot');
-
         if (markerWasOpen) {
           marker.togglePopup();
         }
-      }, 500);
-
+      }, 300);
     })
   });
 }
