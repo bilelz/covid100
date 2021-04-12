@@ -9,6 +9,15 @@ if (!navigator.canShare || !navigator.canShare({ files: [new File([''], '')] }))
   document.querySelector("body").classList.add("no-share-file");
 }
 
+const webP = new Image();
+webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+webP.onload = webP.onerror = () => {
+  if(webP.height !== 2){
+    document.querySelector("body").classList.add("no-webp");
+  }
+};
+ 
+
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/sw.js").then(
     function () { },
@@ -16,7 +25,7 @@ if ("serviceWorker" in navigator) {
   );
 }
 
-const initLatlng = { lat: 46.911637, lng: 2.724609 };
+const initLatlng = { lat: 48.882892478137464, lng: 2.353134155273438 };
 
 let circle100 = undefined,
   marker = undefined;
@@ -205,37 +214,59 @@ async function screenshot() {
 
     // Generate image
     const el = document.querySelector('#screenshot-area');
-    domtoimage.toJpeg(el, { width: el.clientWidth, height: el.clientHeight, quality: 0.75 }).then(
-      async function (dataUrl) {
-        const blob = await (await fetch(dataUrl)).blob();
-        const file = new File([blob], 'covid100.fr.jpeg', { type: 'image/jpeg' });
-        resolve(file)
+    domtoimage.toBlob(el).then(
+      async function (blob) {
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(blob);
+
+        // convert to .webp or .jpeg image
+        img.onload = async function (e2) {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+
+          const imageType = document.querySelector("body").classList.contains("no-webp") ? 'image/jpeg' : 'image/webp';
+
+          canvas.toBlob(blob => {
+            const file = new File([blob], 'covid100.fr_screenshot', { type: imageType });
+            resolve(file)
+          }, imageType);
+        };
+
       }
     ).catch(function (error) {
       console.error('domtoimage.toJpeg', error);
       reject(error);
     }).finally(function () {
-      document.body.classList.remove('screenshot');
 
-      if (markerWasOpen) {
-        marker.togglePopup();
-      }
+      setTimeout(() => {
+        document.body.classList.remove('screenshot');
+
+        if (markerWasOpen) {
+          marker.togglePopup();
+        }
+      }, 500);
+
     })
   });
 }
 
+
 async function downloadScreenshot(event) {
   const file = await screenshot();
-  var fileURL = URL.createObjectURL(file);
+  const fileURL = URL.createObjectURL(file);
+  const fileType = file.type.split('/').pop();
   // window.open(fileURL);
-  var link = document.createElement('a');
+  const link = document.createElement('a');
   const radius = document.getElementById('radius').value / 1000;
 
   if (localStorage.getItem("latestLatLng")) {
     const latLng = JSON.parse(localStorage.getItem("latestLatLng"));
-    link.download = `covid100.fr_${latLng.lat}_${latLng.lng}_${radius}.jpeg`;
+    link.download = `covid100.fr_${latLng.lat}_${latLng.lng}_${radius}.${fileType}`;
   } else {
-    link.download = `covid100.fr_${radius}.jpeg`;
+    link.download = `covid100.fr_${radius}.${fileType}`;
   }
 
   link.href = fileURL;

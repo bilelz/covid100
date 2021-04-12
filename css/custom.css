@@ -37,7 +37,7 @@ nav {
   background: linear-gradient(to right, rgba(255, 195, 113, 0.5), rgba(255, 95, 109, 0.5));
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  position: absolute;
+  position: fixed;
   padding: 0;
   margin: 0;
   top: 0;
@@ -93,6 +93,7 @@ nav img {
   position: relative;
   top: 0;
   z-index: 1;
+  transition: .3s ease-in-out;
 }
 
 button,
@@ -292,7 +293,7 @@ select.button option {
 }
 
 .screenshot {
-  animation: flash 0.3s ease-in-out 0.4s 1;
+  animation: flash 0.6s ease-in-out 0.8s 1;
 }
 
 .screenshot [no-screenshot="true"] {
@@ -301,6 +302,16 @@ select.button option {
 
 .screenshot #radius {
   background-image: none;
+}
+
+.screenshot #map {
+  transform: scale(0.95) translateY(10px);
+  border-radius: 2rem;
+}
+
+.screenshot #screenshot-area {
+  background: -webkit-linear-gradient(to right, #ffc371, #ff5f6d);
+  background: linear-gradient(to right, #ffc371, #ff5f6d);
 }
 
 .screenshot .screenshot-header{
@@ -322,12 +333,12 @@ select.button option {
 }
 
 .screenshot-header .brand {
-  -webkit-backdrop-filter: blur(3px);
-  backdrop-filter: blur(3px);
+  background: -webkit-linear-gradient(to right, rgba(255, 195, 113,1), rgba(255, 95, 109, 1));
+  background: linear-gradient(to right, rgba(255, 195, 113, 1), rgba(255, 95, 109, 1));
   font-size: 1rem;
-  padding: 0.25rem 0;
+  border-radius: 2rem;
+  padding: 0.5rem;
   display: inline-block;
-  width: 100%;
   transition: 0.3s ease-in-out;
 }
 
