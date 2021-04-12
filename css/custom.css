@@ -1,4 +1,12 @@
 body {
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
+}
+html {
+  height: -webkit-fill-available;
+}
+
+body {
   background: #ff5f6d;
   background: -webkit-linear-gradient(to right, #ffc371, #ff5f6d);
   background: linear-gradient(to right, #ffc371, #ff5f6d);
