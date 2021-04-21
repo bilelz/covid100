@@ -93,7 +93,7 @@ nav img {
   position: relative;
   top: 0;
   z-index: 1;
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
 }
 
 button,
@@ -165,6 +165,23 @@ button svg,
 .leaflet-popup-content {
   text-align: center;
   font-size: 14px;
+  box-sizing: border-box;
+  margin: 10px !important;
+  min-width: 250px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.leaflet-popup-content > div {
+  width: 100%;
+  justify-content: space-between;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.leaflet-popup-content > div:first-child,
+.leaflet-popup-content > div:last-child {
+  justify-content: center;
 }
 .leaflet-popup-content .link {
   font-size: 14px;
@@ -173,6 +190,11 @@ button svg,
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+}
+#socialClipboard {
+  width: 98px;
+  box-sizing: border-box;
+  justify-content: center;
 }
 
 .leaflet-control-layers {
@@ -231,6 +253,7 @@ footer button {
 /* features de ouf */
 .no-gps [data-gps],
 .no-share [data-share],
+.share [data-no-share],
 .no-share-file [data-share-file] {
   display: none;
 }
@@ -314,11 +337,11 @@ select.button option {
   background: linear-gradient(to right, #ffc371, #ff5f6d);
 }
 
-.screenshot .screenshot-header{
+.screenshot .screenshot-header {
   visibility: visible;
 }
 
-.screenshot .screenshot-header .brand{
+.screenshot .screenshot-header .brand {
   font-size: 2rem;
 }
 
@@ -333,7 +356,7 @@ select.button option {
 }
 
 .screenshot-header .brand {
-  background: -webkit-linear-gradient(to right, rgba(255, 195, 113,1), rgba(255, 95, 109, 1));
+  background: -webkit-linear-gradient(to right, rgba(255, 195, 113, 1), rgba(255, 95, 109, 1));
   background: linear-gradient(to right, rgba(255, 195, 113, 1), rgba(255, 95, 109, 1));
   font-size: 1rem;
   border-radius: 2rem;
@@ -341,8 +364,6 @@ select.button option {
   display: inline-block;
   transition: 0.3s ease-in-out;
 }
-
-
 
 @keyframes flash {
   from {
@@ -358,14 +379,15 @@ select.button option {
   }
 }
 
-
 .social {
   padding: 2px;
+  font-size: 1em;
+  box-sizing: border-box;
+  justify-content: center;
 }
 
 #socialOthers {
   margin-top: 0.5rem;
-  font-size: 1em;
 }
 
 svg.facebook,

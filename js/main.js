@@ -2,9 +2,8 @@
 if ("geolocation" in navigator === false) {
   document.querySelector("body").classList.add("no-gps");
 }
-if (navigator.share === undefined) {
-  document.querySelector("body").classList.add("no-share");
-}
+document.querySelector("body").classList.add(navigator.share === undefined ? "no-share" : "share");
+
 if (!navigator.canShare || !navigator.canShare({ files: [new File([''], '')] })) {
   document.querySelector("body").classList.add("no-share-file");
 }
@@ -304,6 +303,18 @@ async function sharePosition(event) {
       text: document.querySelector("meta[name='description']").getAttribute("content"),
       url: "https://covid100.fr",
     });
+  }
+}
+
+async function clipboard(event) {
+  event.preventDefault();
+  try {
+    await navigator.clipboard.writeText(event.target.href);
+    event.target.textContent = "  Copié ! "
+  } catch (err) {
+    event.target.textContent = "Erreur :/"
+
+    console.error('Failed to copy: ', err);
   }
 }
 
